@@ -1,15 +1,50 @@
 # Estância da Serra - Site Institucional
 
-Site institucional em desenvolvimento para o Condomínio Estância da Serra.
+Site institucional moderno e responsivo para o Condomínio Estância da Serra.
 
-## Stack
-- Vite + React + TypeScript
-- TailwindCSS (design system rápido)
-- React Router
-- React Query (futuras integrações / painel de status de obras)
-- Leaflet + React Leaflet (mapa interativo de lotes)
-- Framer Motion (animações)
-- EmailJS (formulário de contato sem backend inicial)
+## 🚀 Tecnologias Implementadas
+- **React 18.3.1** + TypeScript
+- **Vite 5.4.19** (build ultra-rápido)
+- **TailwindCSS** com sistema de design personalizado
+- **Framer Motion 11.11.9** (animações avançadas)
+- **React Router 6.26.2** (navegação SPA)
+- **React Icons** (ícones sociais)
+
+## 🎨 Design System Responsivo
+### Tipografia Fluida
+- `.text-fluid-hero` - Títulos principais adaptativos
+- `.text-fluid-section-title` - Títulos de seção responsivos
+- `.text-fluid-base` - Texto base escalável
+- `.text-fluid-sm` - Texto pequeno responsivo
+
+### Componentes Responsivos
+- `.card-responsive` - Cards que se adaptam ao viewport
+- `.grid-responsive-2/3` - Grids adaptativos
+- `.btn-primary/secondary-responsive` - Botões escaláveis
+- `.section-padding` - Espaçamento consistente
+- `.container-padding` - Padding responsivo
+
+### Paleta de Cores da Logo
+- **Verde Principal**: #667A2B (brand-green)
+- **Laranja Destaque**: #FF8A00 (brand-orange)
+- **Cinza Neutro**: Escalas personalizadas
+
+## ✨ Funcionalidades Implementadas
+- ✅ Design 100% responsivo (mobile-first)
+- ✅ Animações e micro-interações
+- ✅ Galeria com lightbox
+- ✅ Botão flutuante WhatsApp
+- ✅ Integração redes sociais
+- ✅ Navegação suave entre seções
+- ✅ SEO otimizado
+- ✅ Performance otimizada
+
+## 📱 Responsividade Avançada
+- **Mobile**: Otimizado para telas pequenas
+- **Tablet**: Layout adaptativo
+- **Desktop**: Experiência premium mantendo consistência visual
+- **Fluid Typography**: Escalonamento automático do texto
+- **Flexible Grids**: Layouts que se reorganizam inteligentemente
 
 ## Scripts
 - `npm run dev` – ambiente de desenvolvimento

@@ -5,6 +5,10 @@ node_modules/.vite/
 # Build outputs
 *.tsbuildinfo
 
+# Include root assets folder for GitHub Pages
+# but exclude dist assets since we copy them
+!assets/
+
 # Environment variables
 .env
 .env.local

@@ -1,54 +1,164 @@
-import emailjs from 'emailjs-com';
-import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { FaInstagram, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 
 export function Contact() {
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const contactInfo = [
+    {
+      icon: FaPhone,
+      label: 'Telefone',
+      value: '(11) 99999-9999',
+      href: 'tel:+5511999999999',
+      color: 'text-brand-green-600'
+    },
+    {
+      icon: FaEnvelope,
+      label: 'E-mail',
+      value: 'contato@estanciadaserra.com.br',
+      href: 'mailto:contato@estanciadaserra.com.br',
+      color: 'text-brand-orange-600'
+    },
+    {
+      icon: FaMapMarkerAlt,
+      label: 'Localização',
+      value: 'Campos do Jordão, SP',
+      href: '#location',
+      color: 'text-brand-gray-600'
+    }
+  ];
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    setStatus('sending');
-    emailjs
-      .send(
-        import.meta.env.VITE_EMAILJS_SERVICE || 'service_xxx',
-        import.meta.env.VITE_EMAILJS_TEMPLATE || 'template_xxx',
-        Object.fromEntries(formData.entries()),
-        import.meta.env.VITE_EMAILJS_PUBLIC || 'public_xxx'
-      )
-      .then(() => setStatus('sent'))
-      .catch(() => setStatus('error'));
-  }
+  const socialMedia = [
+    {
+      icon: FaInstagram,
+      label: 'Instagram',
+      href: 'https://instagram.com/estancia.da.serra',
+      color: 'hover:text-pink-500',
+      bgColor: 'hover:bg-pink-50'
+    },
+    {
+      icon: FaWhatsapp,
+      label: 'WhatsApp',
+      href: 'https://wa.me/5511999999999',
+      color: 'hover:text-green-500',
+      bgColor: 'hover:bg-green-50'
+    }
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
 
   return (
-  <section id="contato" className="bg-brand-dark text-white py-16 phone:py-20 md:py-24">
-      <div className="container mx-auto px-4 xs:px-6 max-w-5xl">
-        <h2 className="text-fluid-section-title font-display font-semibold mb-6 md:mb-8">Fale Conosco</h2>
-        <div className="grid md:grid-cols-2 gap-10 md:gap-12">
-          <form onSubmit={onSubmit} className="space-y-4">
-            <input required name="nome" placeholder="Nome" className="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-green text-sm" autoComplete="name" />
-            <input required type="email" name="email" placeholder="E-mail" className="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-green text-sm" autoComplete="email" />
-            <input name="telefone" placeholder="Telefone" className="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-green text-sm" inputMode="tel" autoComplete="tel" />
-            <textarea required name="mensagem" placeholder="Mensagem" rows={5} className="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-green text-sm" />
-            <button disabled={status==='sending'} className="px-6 py-3 rounded-full bg-brand-green disabled:opacity-60 font-medium hover:bg-brand-green/90 transition text-sm">
-              {status==='sending' ? 'Enviando...' : status==='sent' ? 'Enviada!' : 'Enviar'}
-            </button>
-            {status==='error' && <p className="text-sm text-red-400">Erro ao enviar. Tente novamente.</p>}
-          </form>
-          <div className="space-y-6">
-            <p className="text-brand-green font-semibold text-base xs:text-lg">Condomínio Estância da Serra</p>
-            <p className="text-white/70 max-w-md text-sm leading-relaxed">Preencha seus dados para receber prioridade nas próximas etapas de lançamento, atualizações de avanço das obras e condições comerciais assim que forem divulgadas.</p>
-            <div className="space-y-2 text-white/80 text-xs xs:text-sm">
-              <p><strong>Endereço (referência):</strong> Região rural - ajustar quando definido</p>
-              <p><strong>Telefone:</strong> (00) 00000-0000</p>
-              <p><strong>E-mail:</strong> contato@estanciadasserra.com.br</p>
+    <section id="contato" className="section-padding bg-gradient-to-br from-brand-gray-50 to-white">
+      <div className="container-padding mx-auto">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="max-w-4xl mx-auto text-center"
+        >
+          {/* Header */}
+          <motion.div variants={itemVariants} className="mb-16">
+            <h2 className="text-fluid-section-title font-bold text-brand-gray-800 mb-6">
+              Entre em Contato
+            </h2>
+            <p className="text-fluid-base text-brand-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Estamos prontos para ajudá-lo a encontrar o lote perfeito na Estância da Serra. 
+              Entre em contato conosco através dos canais abaixo.
+            </p>
+          </motion.div>
+
+          {/* Contact Information */}
+          <motion.div variants={itemVariants} className="grid md:grid-cols-3 gap-8 mb-12">
+            {contactInfo.map((info, index) => (
+              <motion.a
+                key={index}
+                href={info.href}
+                className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 card-hover"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="flex flex-col items-center text-center space-y-4">
+                  <div className={`w-16 h-16 rounded-full bg-gradient-to-br from-brand-gray-100 to-brand-gray-200 flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                    <info.icon className={`w-8 h-8 ${info.color}`} />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-brand-gray-800 mb-2">{info.label}</h3>
+                    <p className="text-brand-gray-600 break-all">{info.value}</p>
+                  </div>
+                </div>
+              </motion.a>
+            ))}
+          </motion.div>
+
+          {/* Social Media */}
+          <motion.div variants={itemVariants} className="text-center">
+            <h3 className="text-xl font-semibold text-brand-gray-800 mb-6">
+              Siga-nos nas Redes Sociais
+            </h3>
+            <div className="flex justify-center space-x-6">
+              {socialMedia.map((social, index) => (
+                <motion.a
+                  key={index}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`w-16 h-16 rounded-full bg-white shadow-lg flex items-center justify-center text-brand-gray-600 ${social.color} ${social.bgColor} transition-all duration-300 group`}
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <social.icon className="w-8 h-8 group-hover:scale-110 transition-transform duration-200" />
+                </motion.a>
+              ))}
             </div>
-            <div className="flex gap-4 pt-4 text-sm">
-              <a href="https://instagram.com/estancia.da.serra" target="_blank" rel="noopener" className="underline hover:text-brand-green">Instagram</a>
-              <a href="#" className="underline hover:text-brand-green">WhatsApp</a>
-            </div>
-          </div>
-        </div>
+            <p className="text-sm text-brand-gray-500 mt-4">
+              Acompanhe nossos projetos e novidades
+            </p>
+          </motion.div>
+
+          {/* Call to Action */}
+          <motion.div 
+            variants={itemVariants}
+            className="mt-16 p-8 bg-gradient-primary rounded-2xl text-white text-center"
+          >
+            <h3 className="text-2xl font-bold mb-4">
+              Pronto para Conhecer a Estância da Serra?
+            </h3>
+            <p className="text-lg opacity-90 mb-6">
+              Agende uma visita e descubra o seu futuro lar
+            </p>
+            <motion.a
+              href="https://wa.me/5511999999999?text=Olá! Gostaria de agendar uma visita à Estância da Serra."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-3 bg-white text-brand-green-600 px-8 py-4 rounded-full font-semibold hover:bg-brand-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaWhatsapp className="w-5 h-5" />
+              <span>Agendar Visita</span>
+            </motion.a>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

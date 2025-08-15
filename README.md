@@ -21,7 +21,7 @@ Site institucional em desenvolvimento para o Condomínio Estância da Serra.
 1. Hero com vídeo/imagem
 2. Sobre o empreendimento
 3. Mapa de Lotes (interativo)
-4. Galeria (placeholder - adicionar imagens reais depois)
+4. Galeria (imagens ilustrativas iniciais)
 5. Contato / Lead Form
 
 ## Variáveis de ambiente (criar `.env`)
@@ -72,7 +72,7 @@ Push na branch `main` dispara build e deploy automático.
 - API simples (ou planilha) para atualizar status dos lotes
 - Página separada para cada lote (SEO + compartilhamento)
 - Lightbox de galeria (lib ex: yet-another-react-lightbox)
-- Otimização de imagens (imagem responsiva + blur placeholder)
+- Otimização de imagens (responsivas + blur)
 - Modo escuro opcional
 - Seção de progresso das obras com timeline
 

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="44" cy="28" r="8" fill="#FF8A00"/>
+  <path d="M2 40q14-20 30-8t30 8v14H2z" fill="#333"/>
+  <text x="8" y="56" font-size="12" font-family="Arial" fill="#667A2B">EDS</text>
+</svg>

@@ -7,6 +7,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: '360px'
+  ,phone: '430px'
+      },
       colors: {
         brand: {
           green: '#667A2B',

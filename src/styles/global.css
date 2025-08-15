@@ -8,8 +8,27 @@ html.dark body { @apply bg-brand-dark text-white; }
 
 .container { @apply mx-auto; }
 
+/* Tipografia fluida utilitária */
+@layer utilities {
+	.text-fluid-hero { font-size: clamp(2.25rem, 5vw, 3.5rem); line-height: 1.1; }
+	.text-fluid-section-title { font-size: clamp(1.75rem, 3.2vw, 2.25rem); line-height: 1.15; }
+	.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+	.pb-safe { padding-bottom: max(env(safe-area-inset-bottom),1.25rem); }
+}
+
+/* Safe-area para dispositivos com notch */
+@supports (padding: max(0px)) {
+	header { padding-top: env(safe-area-inset-top); }
+}
+
 /* Scrollbar custom */
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: #111; }
 ::-webkit-scrollbar-thumb { background: #444; border-radius: 6px; }
 ::-webkit-scrollbar-thumb:hover { background: #666; }
+
+/* Fontes carregadas via Google Fonts já usam display=swap */
+
+/* Simple fade-in utility */
+.fade-in { animation: fadeIn .6s ease forwards; opacity:0; }
+@keyframes fadeIn { to { opacity:1; } }

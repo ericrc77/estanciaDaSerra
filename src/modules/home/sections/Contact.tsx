@@ -21,31 +21,31 @@ export function Contact() {
   }
 
   return (
-    <section id="contato" className="bg-brand-dark text-white py-24">
-      <div className="container mx-auto px-6 max-w-5xl">
-        <h2 className="text-3xl font-display font-semibold mb-8">Fale Conosco</h2>
-        <div className="grid md:grid-cols-2 gap-12">
+  <section id="contato" className="bg-brand-dark text-white py-16 phone:py-20 md:py-24">
+      <div className="container mx-auto px-4 xs:px-6 max-w-5xl">
+        <h2 className="text-fluid-section-title font-display font-semibold mb-6 md:mb-8">Fale Conosco</h2>
+        <div className="grid md:grid-cols-2 gap-10 md:gap-12">
           <form onSubmit={onSubmit} className="space-y-4">
-            <input required name="nome" placeholder="Nome" className="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-green" />
-            <input required type="email" name="email" placeholder="E-mail" className="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-green" />
-            <input name="telefone" placeholder="Telefone" className="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-green" />
-            <textarea required name="mensagem" placeholder="Mensagem" rows={5} className="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-green" />
-            <button disabled={status==='sending'} className="px-6 py-3 rounded-full bg-brand-green disabled:opacity-60 font-medium hover:bg-brand-green/90 transition">
+            <input required name="nome" placeholder="Nome" className="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-green text-sm" autoComplete="name" />
+            <input required type="email" name="email" placeholder="E-mail" className="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-green text-sm" autoComplete="email" />
+            <input name="telefone" placeholder="Telefone" className="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-green text-sm" inputMode="tel" autoComplete="tel" />
+            <textarea required name="mensagem" placeholder="Mensagem" rows={5} className="w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-green text-sm" />
+            <button disabled={status==='sending'} className="px-6 py-3 rounded-full bg-brand-green disabled:opacity-60 font-medium hover:bg-brand-green/90 transition text-sm">
               {status==='sending' ? 'Enviando...' : status==='sent' ? 'Enviada!' : 'Enviar'}
             </button>
             {status==='error' && <p className="text-sm text-red-400">Erro ao enviar. Tente novamente.</p>}
           </form>
           <div className="space-y-6">
-            <p className="text-brand-green font-semibold text-lg">Condomínio Estância da Serra</p>
-            <p className="text-white/70 max-w-md">Preencha seus dados para receber prioridade nas próximas etapas de lançamento, atualizações de avanço das obras e condições comerciais assim que forem divulgadas.</p>
-            <div className="space-y-2 text-white/80 text-sm">
+            <p className="text-brand-green font-semibold text-base xs:text-lg">Condomínio Estância da Serra</p>
+            <p className="text-white/70 max-w-md text-sm leading-relaxed">Preencha seus dados para receber prioridade nas próximas etapas de lançamento, atualizações de avanço das obras e condições comerciais assim que forem divulgadas.</p>
+            <div className="space-y-2 text-white/80 text-xs xs:text-sm">
               <p><strong>Endereço (referência):</strong> Região rural - ajustar quando definido</p>
               <p><strong>Telefone:</strong> (00) 00000-0000</p>
               <p><strong>E-mail:</strong> contato@estanciadasserra.com.br</p>
             </div>
-            <div className="flex gap-4 pt-4">
-              <a href="https://instagram.com/estancia.da.serra" target="_blank" rel="noopener" className="underline">Instagram</a>
-              <a href="#" className="underline">WhatsApp</a>
+            <div className="flex gap-4 pt-4 text-sm">
+              <a href="https://instagram.com/estancia.da.serra" target="_blank" rel="noopener" className="underline hover:text-brand-green">Instagram</a>
+              <a href="#" className="underline hover:text-brand-green">WhatsApp</a>
             </div>
           </div>
         </div>

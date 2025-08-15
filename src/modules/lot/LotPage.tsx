@@ -3,7 +3,7 @@ import data from '../../data/lots.json';
 
 interface Lot { id: string; status: string; area_m2: number; price?: number; videoUrl?: string; }
 
-export function LotPage() {
+export default function LotPage() {
   const { id } = useParams();
   const lot = (data as Lot[]).find(l => l.id === id);
   if (!lot) return <div className="max-w-4xl mx-auto px-6 py-32"><p>Lote não encontrado.</p><Link className="underline text-brand-green" to="/">Voltar</Link></div>;
@@ -18,8 +18,8 @@ export function LotPage() {
           {lot.price && <p><strong>Preço:</strong> R$ {lot.price.toLocaleString('pt-BR')}</p>}
         </div>
         <div className="rounded-lg bg-brand-dark/5 dark:bg-white/5 p-4 text-sm">
-          <p className="font-medium mb-2">Descrição (placeholder)</p>
-          <p>Informações detalhadas do lote serão adicionadas aqui quando o cliente enviar conteúdo (vista, topografia, infraestrutura próxima).</p>
+          <p className="font-medium mb-2">Informações do Lote</p>
+          <p>Conteúdo detalhado (características físicas, vista e infraestrutura prevista) será disponibilizado em etapa posterior de divulgação comercial.</p>
         </div>
       </div>
       {lot.videoUrl && <div className="aspect-video w-full rounded-lg overflow-hidden shadow-soft"><iframe src={lot.videoUrl.replace('watch?v=', 'embed/')} className="w-full h-full" allowFullScreen title={`Vídeo Lote ${lot.id}`}></iframe></div>}

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estância da Serra</title>
+    <!-- SPA fallback para React Router no GitHub Pages -->
+    <script>
+      // Redireciona para a página principal preservando a rota
+      (function() {
+        var base = '/estanciaDaSerra/';
+        var currentPath = window.location.pathname;
+        var search = window.location.search;
+        var hash = window.location.hash;
+        
+        // Se não estamos na base, preserva a rota no sessionStorage
+        if (currentPath !== base && currentPath !== (base.slice(0, -1))) {
+          var redirect = currentPath.replace(base, '/') + search + hash;
+          sessionStorage.setItem('redirect', redirect);
+        }
+        
+        window.location.replace(base);
+      })();
+    </script>
+  </head>
+  <body>
+    <noscript>Redirecionando para Estância da Serra...</noscript>
+    <div style="text-align: center; padding: 40px; font-family: sans-serif;">
+      Redirecionando...
+    </div>
+  </body>
+</html>

@@ -8,22 +8,37 @@ const phases = [
 
 export function Timeline() {
   return (
-    <section id="progresso" className="container mx-auto px-6 max-w-6xl">
-      <h2 className="text-3xl font-display font-semibold mb-10 text-brand-green">Progresso das Obras</h2>
-      <div className="relative pl-6 border-l-2 border-brand-green/30 space-y-8">
-        {phases.map(p => (
-          <div key={p.title} className="relative">
-            <span className="absolute -left-[15px] top-2 w-3.5 h-3.5 rounded-full bg-brand-green shadow" />
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-              <h3 className="text-lg font-semibold">{p.title}</h3>
-              <span className="text-xs uppercase tracking-wide px-2 py-1 rounded-full bg-brand-green/10 text-brand-green">{p.status}</span>
+  <section id="progresso" className="container mx-auto px-4 xs:px-6 max-w-6xl py-16 phone:py-20 md:py-24">
+      <h2 className="text-fluid-section-title font-display font-semibold mb-8 md:mb-10 text-brand-green">Progresso das Obras</h2>
+      {/* Mobile slider */}
+      <div className="block lg:hidden -mx-4 xs:-mx-6 pb-4">
+        <div className="flex overflow-x-auto gap-4 px-4 xs:px-6 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-brand-green/40 scrollbar-track-transparent">
+          {phases.map(p => (
+            <div key={p.title} className="snap-start min-w-[240px] w-[260px] bg-white dark:bg-brand-dark/40 border border-brand-green/15 rounded-lg p-4 flex flex-col gap-2 shadow-soft">
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="text-sm font-semibold leading-snug">{p.title}</h3>
+                <span className="text-[10px] uppercase tracking-wide px-2 py-1 rounded-full bg-brand-green/10 text-brand-green whitespace-nowrap">{p.status}</span>
+              </div>
+              <p className="text-[11px] text-brand-dark/70 dark:text-white/70 leading-relaxed flex-1">{p.desc}</p>
+              <p className="text-[10px] text-brand-dark/50 dark:text-white/40">{p.date}</p>
             </div>
-            <p className="text-brand-dark/70 dark:text-white/70 mt-1 text-sm max-w-3xl">{p.desc}</p>
-            <p className="text-xs text-brand-dark/50 dark:text-white/40 mt-1">{p.date}</p>
+          ))}
+        </div>
+      </div>
+      {/* Grid layout for large screens */}
+      <div className="hidden lg:grid grid-cols-5 gap-6">
+        {phases.map(p => (
+          <div key={p.title} className="relative bg-white dark:bg-brand-dark/40 border border-brand-green/15 rounded-lg p-4 flex flex-col gap-2 shadow-soft">
+            <div className="flex items-start justify-between gap-3">
+              <h3 className="text-sm xl:text-base font-semibold leading-snug">{p.title}</h3>
+              <span className="text-[10px] xl:text-xs uppercase tracking-wide px-2 py-1 rounded-full bg-brand-green/10 text-brand-green whitespace-nowrap">{p.status}</span>
+            </div>
+            <p className="text-[11px] xl:text-sm text-brand-dark/70 dark:text-white/70 leading-relaxed flex-1">{p.desc}</p>
+            <p className="text-[10px] text-brand-dark/50 dark:text-white/40">{p.date}</p>
           </div>
         ))}
       </div>
-      <p className="text-xs text-brand-dark/50 dark:text-white/40 mt-6">Linha do tempo ilustrativa. Datas sujeitas a alterações conforme cronograma executivo.</p>
+      <p className="text-[10px] sm:text-xs text-brand-dark/50 dark:text-white/40 mt-6">Linha do tempo ilustrativa. Datas sujeitas a alterações conforme cronograma executivo.</p>
     </section>
   );
 }

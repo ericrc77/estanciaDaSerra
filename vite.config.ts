@@ -5,9 +5,10 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ command, mode }) => {
   const isProduction = mode === 'production';
   const isDevelopment = command === 'serve';
+  const isGitHubPages = process.env.GITHUB_PAGES === 'true';
   
   return {
-    base: isDevelopment ? '/' : '/estanciaDaSerra/',
+    base: isGitHubPages ? '/estanciaDaSerra/' : '/',
     plugins: [react()],
     esbuild: {
       loader: 'tsx',

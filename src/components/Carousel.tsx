@@ -91,27 +91,6 @@ export function Carousel({ images, onImageClick }: CarouselProps) {
           </SwiperSlide>
         ))}
       </Swiper>
-
-      <style jsx>{`
-        .gallery-swiper .swiper-pagination {
-          bottom: 0;
-        }
-        .gallery-swiper .swiper-pagination-bullet {
-          background: rgba(102, 122, 43, 0.4);
-          width: 12px;
-          height: 12px;
-          transition: all 0.3s ease;
-        }
-        .gallery-swiper .swiper-pagination-bullet-active {
-          background: #667A2B;
-          transform: scale(1.2);
-        }
-        .gallery-swiper .swiper-slide-shadow-left,
-        .gallery-swiper .swiper-slide-shadow-right {
-          background-image: none;
-          background: linear-gradient(to right, rgba(0,0,0,0.2), transparent);
-        }
-      `}</style>
     </motion.div>
   );
 }

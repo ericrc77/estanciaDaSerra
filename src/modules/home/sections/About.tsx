@@ -16,22 +16,23 @@ export function About() {
   const { containerVariants, itemVariants } = useStaggerChildren(0.1);
 
   return (
-    <section id="sobre" className="px-4 xs:px-6 max-w-6xl mx-auto">
+    <section id="sobre" className="px-4 xs:px-6 max-w-6xl mx-auto overflow-hidden">
       <motion.div 
         ref={ref}
         animate={controls}
         variants={variants}
-        className="grid md:grid-cols-2 gap-12 lg:gap-16 items-start"
+        className="grid md:grid-cols-2 gap-12 lg:gap-16 items-start w-full"
       >
-        <div className="order-2 md:order-1 space-y-8">
+        <div className="order-2 md:order-1 space-y-8 w-full">
           <motion.header
             variants={containerVariants}
             initial="hidden"
             animate={controls}
+            className="w-full"
           >
             <motion.h2 
               variants={itemVariants}
-              className="text-fluid-section-title font-display font-semibold text-brand-gray-800 mb-6 leading-tight"
+              className="text-fluid-section-title font-display font-semibold text-brand-gray-800 mb-6 leading-tight word-break-keep"
             >
               Viver Conectado à{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-green-500 to-brand-orange-500">
@@ -40,7 +41,7 @@ export function About() {
             </motion.h2>
             <motion.p 
               variants={itemVariants}
-              className="text-base sm:text-lg leading-relaxed text-brand-gray-600 dark:text-white/80"
+              className="text-base sm:text-lg leading-relaxed text-brand-gray-600 dark:text-white/80 word-break-keep"
             >
               Implantação em fase inicial com foco em infraestrutura essencial e preparação do terreno. 
               Proposta de urbanismo que valoriza visuais amplos, boa insolação e áreas destinadas ao convívio futuro.
@@ -51,18 +52,18 @@ export function About() {
             variants={containerVariants}
             initial="hidden"
             animate={controls}
-            className="grid grid-cols-1 phone:grid-cols-2 gap-4"
+            className="grid grid-cols-1 phone:grid-cols-2 gap-4 w-full"
           >
             {features.map((feature, index) => (
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-brand-gray-700/50 shadow-soft hover:shadow-soft-lg transition-all duration-300 card-hover group"
+                className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-brand-gray-700/50 shadow-soft hover:shadow-soft-lg transition-all duration-300 card-hover group w-full min-w-0"
               >
                 <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-brand-green-100 dark:bg-brand-green-900/30 flex items-center justify-center group-hover:bg-brand-orange-200 dark:group-hover:bg-brand-orange-800/50 transition-colors">
                   <feature.icon size={16} className={feature.color} />
                 </div>
-                <span className="text-sm font-medium text-brand-gray-700 dark:text-white/90 group-hover:text-brand-orange-700 dark:group-hover:text-brand-orange-300 transition-colors">
+                <span className="text-sm font-medium text-brand-gray-700 dark:text-white/90 group-hover:text-brand-orange-700 dark:group-hover:text-brand-orange-300 transition-colors word-break-keep flex-1 min-w-0">
                   {feature.text}
                 </span>
               </motion.div>

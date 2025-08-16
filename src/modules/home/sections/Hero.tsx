@@ -1,19 +1,36 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { Logo } from '../../../components/Logo';
 
 // Assets servidos via pasta public
 const heroVideo = '/media/hero-placeholder.mp4';
-const logo = '/media/logo-horizontal.png';
+const heroImage = '/media/hero.png';
+const logo = '/media/logo-provisoria.jpeg';
 
 export function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 500);
+    
+    // Preload da imagem hero
+    const img = new Image();
+    img.onload = () => {
+      setImageLoaded(true);
+      setIsLoaded(true);
+    };
+    img.onerror = () => {
+      setImageError(true);
+      console.log('hero.png não encontrada, usando vídeo');
+    };
+    img.src = heroImage;
+    
     return () => clearTimeout(timer);
   }, []);
 
@@ -55,47 +72,68 @@ export function Hero() {
   };
 
   return (
-    <section id="inicio" className="relative min-h-[100svh] h-[100dvh] xl:h-[95vh] w-full flex items-center justify-center overflow-hidden pb-safe">
-      {/* Video Background com Parallax */}
+    <section id="inicio" className="relative min-h-[100svh] h-[100dvh] xl:h-[95vh] w-full flex items-center justify-center overflow-hidden pb-safe pt-1">
+      {/* Background com Parallax - Imagem prioritária */}
       <motion.div
         style={{ y }}
         className="absolute inset-0 w-full h-[120%] -top-[10%]"
       >
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline 
-          className="absolute inset-0 w-full h-full object-cover brightness-[0.65] scale-105" 
-          poster={logo}
-          onLoadedData={() => setIsLoaded(true)}
-          onError={(e) => {
-            (e.currentTarget as HTMLVideoElement).style.display = 'none';
-            const fallback = document.querySelector('.hero-fallback') as HTMLElement;
-            if (fallback) fallback.style.display = 'block';
-          }}
-        >
-          <source src={heroVideo} type="video/mp4" />
-        </video>
-        {/* Fallback image */}
+        {/* Imagem de fundo principal - só aparece se carregou com sucesso */}
+        {imageLoaded && !imageError && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="absolute inset-0 w-full h-full hero-background-image brightness-[0.7]"
+            style={{ backgroundImage: `url(${heroImage})` }}
+          />
+        )}
+        
+        {/* Vídeo como fallback - aparece se imagem falhou ou enquanto carrega */}
+        {(imageError || !imageLoaded) && (
+          <video 
+            autoPlay 
+            muted 
+            loop 
+            playsInline 
+            className="absolute inset-0 w-full h-full object-cover brightness-[0.65] scale-105" 
+            poster={logo}
+            onLoadedData={() => !imageLoaded && setIsLoaded(true)}
+            onError={(e) => {
+              (e.currentTarget as HTMLVideoElement).style.display = 'none';
+              const fallback = document.querySelector('.hero-fallback') as HTMLElement;
+              if (fallback) fallback.style.display = 'block';
+            }}
+          >
+            <source src={heroVideo} type="video/mp4" />
+          </video>
+        )}
+        
+        {/* Fallback final com imagem da galeria */}
         <div 
           className="hero-fallback absolute inset-0 hidden bg-center bg-cover brightness-[0.65] scale-105" 
           style={{ backgroundImage: 'url(/gallery/1.jpg)' }} 
         />
       </motion.div>
 
-      {/* Gradient Overlay Sofisticado */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
-      <div className="absolute inset-0 bg-gradient-to-r from-brand-green-900/20 via-transparent to-brand-orange-900/10" />
+      {/* Gradient Overlay Sofisticado - Otimizado para a imagem com pessoas */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60" />
+      <div className="absolute inset-0 bg-gradient-to-r from-brand-green-900/15 via-transparent to-brand-orange-900/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
       {/* Loading State */}
       {!isLoaded && (
         <div className="absolute inset-0 bg-brand-gray-900 flex items-center justify-center z-20">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-            className="w-8 h-8 border-2 border-brand-green-400 border-t-transparent rounded-full"
-          />
+          <motion.div className="text-center">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              className="w-8 h-8 border-2 border-brand-green-400 border-t-transparent rounded-full mx-auto mb-4"
+            />
+            <p className="text-white text-sm">
+              {imageLoaded ? 'Carregando...' : imageError ? 'Carregando vídeo...' : 'Carregando imagem...'}
+            </p>
+          </motion.div>
         </div>
       )}
 
@@ -105,19 +143,13 @@ export function Hero() {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 text-center px-4 xs:px-6 max-w-5xl mx-auto"
+        className="relative z-10 text-center px-4 xs:px-6 max-w-5xl mx-auto w-full"
       >
-        <motion.div variants={logoVariants}>
-          <img 
-            src={logo} 
-            alt="Estância da Serra" 
-            className="mx-auto max-w-[300px] phone:max-w-[340px] md:max-w-[400px] lg:max-w-[440px] w-11/12 mb-6 md:mb-8 drop-shadow-2xl" 
-          />
-        </motion.div>
+        <Logo size="xl" animated className="mx-auto mb-6 md:mb-8" />
 
         <motion.h1 
           variants={itemVariants}
-          className="text-fluid-hero md:text-5xl lg:text-6xl font-display font-semibold text-white max-w-4xl mx-auto leading-tight"
+          className="text-fluid-hero md:text-5xl lg:text-6xl font-display font-semibold text-white max-w-4xl mx-auto leading-tight word-break-keep"
         >
           Um Condomínio em Construção no{' '}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-green-300 to-brand-orange-400">
@@ -127,7 +159,7 @@ export function Hero() {
 
         <motion.p 
           variants={itemVariants}
-          className="text-lg xs:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mt-6 md:mt-8 leading-relaxed font-light"
+          className="text-lg xs:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mt-6 md:mt-8 leading-relaxed font-light word-break-keep px-2"
         >
           A Estância da Serra está ganhando forma: estradas internas em finalização e preparação do terreno. 
           Acompanhe a evolução e garanta prioridade nas próximas etapas.

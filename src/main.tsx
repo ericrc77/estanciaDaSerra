@@ -17,7 +17,7 @@ const queryClient = new QueryClient({
 });
 
 class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean }> {
-  constructor(props: any) { 
+  constructor(props: { children: React.ReactNode }) { 
     super(props); 
     this.state = { hasError: false }; 
   }
@@ -26,8 +26,8 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { has
     return { hasError: true }; 
   }
   
-  componentDidCatch(err: any, errorInfo: any) { 
-    console.error('Erro de renderização:', err, errorInfo); 
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) { 
+    console.error('Erro de renderização:', error, errorInfo); 
   }
   
   render() { 

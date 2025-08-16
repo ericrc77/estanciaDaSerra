@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import { Menu, X } from 'lucide-react';
+import { Logo } from '../components/Logo';
 
 const links = [
   { href: '#inicio', label: 'Início' },
@@ -14,12 +15,20 @@ const links = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [heroVisible, setHeroVisible] = useState(true);
   const active = useScrollSpy(links.map(l => l.href.replace('#', '')));
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const scrollY = window.scrollY;
+      setScrolled(scrollY > 50);
+      
+      // Detecta se o hero ainda está visível
+      // Se rolou menos que 70% da altura da tela, hero ainda está visível
+      const heroThreshold = window.innerHeight * 0.7;
+      setHeroVisible(scrollY < heroThreshold);
     };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -83,26 +92,31 @@ export function Navbar() {
   };
 
   return (
-    <motion.header 
-      variants={navVariants}
-      initial="hidden"
-      animate="visible"
-      className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 h-16 md:h-18 ${
-        scrolled 
-          ? 'backdrop-blur-md bg-white/90 shadow-soft border-b border-black/5' 
-          : 'bg-transparent'
-      }`}
-    >
+    <>
+      {/* Barra decorativa superior estilosa */}
+      <div className="fixed top-0 left-0 w-full h-1 z-50 decorative-bar">
+        <div className="h-full decorative-bar-inner"></div>
+      </div>
+      
+      <motion.header 
+        variants={navVariants}
+        initial="hidden"
+        animate="visible"
+        className={`fixed top-1 left-0 w-full z-40 transition-all duration-500 h-16 md:h-18 ${
+          scrolled 
+            ? 'backdrop-blur-md bg-white/90 shadow-soft border-b border-black/5' 
+            : 'bg-transparent'
+        }`}
+      >
       <nav className="mx-auto max-w-7xl px-4 xs:px-5 phone:px-6 md:px-8 h-full flex items-center justify-between gap-4">
         {/* Logo */}
         <motion.a 
           href="#inicio" 
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="font-display text-base xs:text-lg phone:text-xl font-bold text-brand-green-600 tracking-wide truncate max-w-[60%] relative"
+          className="flex items-center gap-2 truncate max-w-[70%] relative"
         >
-          ESTÂNCIA DA SERRA
-          <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-green-500 to-brand-orange-500 group-hover:w-full transition-all duration-300" />
+          <Logo size="md" showText={!heroVisible} />
         </motion.a>
 
         {/* Desktop Menu */}
@@ -201,5 +215,6 @@ export function Navbar() {
         )}
       </AnimatePresence>
     </motion.header>
+    </>
   );
 }

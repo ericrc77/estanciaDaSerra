@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevenção de overflow horizontal e texto responsivo */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 /* Smooth scrolling */
 html { 
   scroll-behavior: smooth; 
@@ -16,6 +26,22 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
+  width: 100%;
+}
+
+/* Prevenção de quebra de palavras longas */
+.word-break-keep {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Garantir que textos não passem dos limites */
+.text-container {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 body::selection { background: rgba(102, 122, 43, 0.2); }
@@ -64,8 +90,159 @@ body::selection { background: rgba(102, 122, 43, 0.2); }
   .pb-safe { padding-bottom: max(env(safe-area-inset-bottom), 1.25rem); }
 }
 
-/* Gradientes com paleta da logo */
+/* Estilos do Carousel (Swiper) */
+.gallery-swiper .swiper-pagination {
+  bottom: 0 !important;
+}
+.gallery-swiper .swiper-pagination-bullet {
+  background: rgba(102, 122, 43, 0.4);
+  width: 12px;
+  height: 12px;
+  transition: all 0.3s ease;
+}
+.gallery-swiper .swiper-pagination-bullet-active {
+  background: #667A2B;
+  transform: scale(1.2);
+}
+.gallery-swiper .swiper-slide-shadow-left,
+.gallery-swiper .swiper-slide-shadow-right {
+  background-image: none;
+}
+
+/* Logo provisória - garantindo qualidade visual em todas as dimensões */
 @layer components {
+  /* Barra decorativa superior estilosa */
+  .decorative-bar {
+    background: linear-gradient(90deg, 
+      #667A2B 0%, 
+      #7da947 25%, 
+      #FF8A00 50%, 
+      #7da947 75%, 
+      #667A2B 100%
+    );
+    box-shadow: 0 2px 8px rgba(102, 122, 43, 0.3);
+  }
+  
+  .decorative-bar-inner {
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255, 255, 255, 0.3) 50%, 
+      transparent 100%
+    );
+    animation: shimmer 3s ease-in-out infinite;
+  }
+  
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+  
+  .logo-estancia {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    object-fit: contain;
+    background: white;
+    padding: 4px;
+  }
+  
+  .logo-estancia:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Tamanhos responsivos para navbar */
+  .logo-navbar {
+    height: 2rem; /* 32px - celular pequeno */
+  }
+  
+  @media (min-width: 360px) {
+    .logo-navbar { height: 2.25rem; } /* 36px - celular grande */
+  }
+  
+  @media (min-width: 430px) {
+    .logo-navbar { height: 2.5rem; } /* 40px - telefone */
+  }
+  
+  @media (min-width: 768px) {
+    .logo-navbar { height: 2.75rem; } /* 44px - tablet */
+  }
+  
+  @media (min-width: 1024px) {
+    .logo-navbar { height: 3rem; } /* 48px - desktop */
+  }
+  
+  /* Tamanhos para o hero */
+  .logo-hero {
+    width: 240px; /* celular pequeno */
+    max-width: 85vw;
+    height: auto;
+  }
+  
+  @media (min-width: 360px) {
+    .logo-hero { width: 280px; } /* celular grande */
+  }
+  
+  @media (min-width: 430px) {
+    .logo-hero { width: 320px; } /* telefone */
+  }
+  
+  @media (min-width: 768px) {
+    .logo-hero { width: 380px; } /* tablet */
+  }
+  
+  @media (min-width: 1024px) {
+    .logo-hero { width: 420px; } /* desktop pequeno */
+  }
+  
+  @media (min-width: 1280px) {
+    .logo-hero { width: 460px; } /* desktop grande */
+  }
+  
+  /* Melhorias visuais específicas para a logo provisória */
+  .logo-estancia-hero {
+    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3));
+    border-radius: 12px;
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+    padding: 8px;
+    border: 2px solid rgba(102, 122, 43, 0.1);
+  }
+  
+  /* Otimizações para imagem hero */
+  .hero-background-image {
+    background-attachment: fixed;
+    background-position: center 40%; /* Posiciona um pouco acima do centro para mostrar melhor as pessoas */
+    background-repeat: no-repeat;
+    background-size: cover;
+    will-change: transform;
+    transform: scale(1.05);
+  }
+  
+  /* Media queries para diferentes densidades de tela */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .hero-background-image {
+      background-size: cover;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+  }
+  
+  /* Fallback para dispositivos que não suportam background-attachment: fixed */
+  @media (hover: none) and (pointer: coarse) {
+    .hero-background-image {
+      background-attachment: scroll;
+      background-position: center center; /* Mobile usa centro padrão */
+    }
+  }
+  
+  /* Para telas muito pequenas, foca mais nas montanhas */
+  @media (max-width: 480px) {
+    .hero-background-image {
+      background-position: center 30%;
+    }
+  }
+  
+  /* Gradientes com paleta da logo */
   .gradient-primary {
     background: linear-gradient(135deg, #667A2B 0%, #7da947 100%);
   }

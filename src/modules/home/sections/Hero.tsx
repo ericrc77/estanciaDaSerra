@@ -48,7 +48,7 @@ export function Hero() {
         }
       };
       
-      setTimeout(checkAndStartBlur, 1000); // Aguarda 1s após a imagem carregar
+  setTimeout(checkAndStartBlur, 4500); // Aguarda 4.5s após a imagem carregar
     };
     
     img.onerror = () => {
@@ -63,7 +63,7 @@ export function Hero() {
         }
       };
       
-      setTimeout(checkAndStartBlur, 1500);
+  setTimeout(checkAndStartBlur, 4500); // Atraso consistente no fallback
     };
     
     img.src = heroImage;
@@ -75,7 +75,7 @@ export function Hero() {
 
   const startBlurAnimation = () => {
     const startTime = Date.now();
-    const duration = 3000; // 3 segundos para o blur completo
+    const duration = 4000; // 4 segundos para o blur completo
     
     const animateBlur = () => {
       const elapsed = Date.now() - startTime;
@@ -83,10 +83,10 @@ export function Hero() {
       
       // Função de easing suave
       const easeOutCubic = 1 - Math.pow(1 - progress, 3);
-      setBlurLevel(easeOutCubic * 3); // Máximo de 3px de blur
+  setBlurLevel(easeOutCubic * 4); // Máximo de 4px de blur
       
-      // Inicia o conteúdo quando o blur está em 40%
-      if (progress >= 0.4 && !isLoaded) {
+  // Inicia o conteúdo quando o blur está em 25%
+  if (progress >= 0.25 && !isLoaded) {
         setIsLoaded(true);
       }
       
@@ -221,21 +221,21 @@ export function Hero() {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 text-center px-4 xs:px-6 max-w-6xl mx-auto w-full flex flex-col justify-center items-center min-h-[100vh] py-20 lg:py-16"
+  className="relative z-10 text-center px-4 xs:px-6 max-w-6xl mx-auto w-full flex flex-col justify-start items-center min-h-[100vh] pt-32 md:pt-40 pb-20 lg:pt-44 lg:pb-16"
       >
         <motion.h1 
           variants={itemVariants}
-          className="text-fluid-hero font-black text-white max-w-4xl mx-auto leading-tight break-words hyphens-auto safe-margins overflow-safe order-1 mb-6 lg:mb-8"
+          className="text-fluid-hero font-extrabold tracking-tight text-white max-w-5xl mx-auto leading-tight break-words hyphens-auto safe-margins overflow-safe order-1 mb-6 lg:mb-8"
         >
           Um Condomínio em Construção no{' '}
-          <span className="bg-gradient-to-r from-emerald-200 via-green-300 to-orange-300 bg-clip-text text-transparent font-black">
+          <span className="text-white font-extrabold">
             Coração da Natureza
           </span>
         </motion.h1>
 
         <motion.p 
           variants={itemVariants}
-          className="text-fluid-base text-white max-w-3xl mx-auto mt-4 md:mt-6 lg:mt-8 leading-relaxed font-medium break-words hyphens-auto safe-margins overflow-safe order-2 mb-8 lg:mb-10"
+          className="text-fluid-base text-white/95 max-w-3xl mx-auto mt-2 md:mt-4 lg:mt-6 leading-relaxed font-medium break-words hyphens-auto safe-margins overflow-safe order-2 mb-8 lg:mb-10"
         >
           A Estância da Serra está ganhando forma: estradas internas em finalização e preparação do terreno. 
           Acompanhe a evolução e garante prioridade nas próximas etapas.

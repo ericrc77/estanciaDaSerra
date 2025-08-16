@@ -67,16 +67,12 @@ img, video {
     letter-spacing: -0.015em;
     font-weight: 900;
     color: #ffffff;
-    text-shadow: 
-      0 6px 20px rgba(0, 0, 0, 0.9), 
-      0 3px 8px rgba(0, 0, 0, 0.8),
-      0 1px 3px rgba(0, 0, 0, 0.7),
-      2px 2px 0px rgba(0, 0, 0, 0.4);
     max-width: 100%;
     word-break: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
-    filter: contrast(1.1) brightness(1.05);
+  /* Removido text-shadow para visual mais limpo */
+  filter: brightness(1.05);
   }
   
   /* Títulos de seção com cores vibrantes */
@@ -89,7 +85,7 @@ img, video {
     max-width: 100%;
     word-break: break-word;
     overflow-wrap: break-word;
-    text-shadow: 0 2px 4px rgba(6, 95, 70, 0.3);
+  /* Removido text-shadow para visual mais limpo */
   }
   
   /* Texto base com contraste máximo */
@@ -98,14 +94,11 @@ img, video {
     line-height: clamp(1.6, 1.7, 1.8);
     color: #ffffff;
     font-weight: 500;
-    text-shadow: 
-      0 3px 12px rgba(0, 0, 0, 0.9), 
-      0 2px 6px rgba(0, 0, 0, 0.8),
-      0 1px 3px rgba(0, 0, 0, 0.6);
     max-width: 100%;
     word-break: break-word;
     overflow-wrap: break-word;
-    filter: contrast(1.1);
+  /* Removido text-shadow para visual mais limpo */
+  filter: contrast(1.05);
   }
   
   /* Texto para seções claras */
@@ -133,7 +126,7 @@ img, video {
     line-height: clamp(1.5, 1.6, 1.7);
     color: #059669;
     font-weight: 600;
-    text-shadow: 0 1px 2px rgba(5, 150, 105, 0.3);
+  /* Removido text-shadow para visual mais limpo */
   }
   
   /* Espaçamentos seguros para todas as telas */
@@ -743,17 +736,12 @@ html, body {
 @media (-webkit-min-device-pixel-ratio: 2) and (max-width: 768px) {
   .text-fluid-hero {
     font-weight: 900 !important;
-    text-shadow: 
-      0 8px 24px rgba(0, 0, 0, 0.9), 
-      0 4px 12px rgba(0, 0, 0, 0.8),
-      0 2px 6px rgba(0, 0, 0, 0.7) !important;
+  /* Removidas sombras pesadas */
   }
   
   .text-fluid-base {
     font-weight: 600 !important;
-    text-shadow: 
-      0 4px 16px rgba(0, 0, 0, 0.9), 
-      0 2px 8px rgba(0, 0, 0, 0.8) !important;
+  /* Removidas sombras pesadas */
   }
 }
 

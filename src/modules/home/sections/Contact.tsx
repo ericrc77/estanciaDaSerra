@@ -2,7 +2,6 @@
 import { motion } from 'framer-motion';
 import { FaInstagram, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt, FaHandshake } from 'react-icons/fa';
 import React, { useState } from 'react';
-import ChatBot from '../../../components/ChatBot';
 
 export function Contact() {
   const [showChat, setShowChat] = useState(false);
@@ -160,7 +159,7 @@ export function Contact() {
               <FaHandshake className="w-5 h-5" />
               <span>Agendar Visita</span>
             </motion.button>
-            {showChat && <ChatBot userId={String(Date.now())} />}
+            {/* ChatBot removido */}
           </motion.div>
         </motion.div>
       </div>

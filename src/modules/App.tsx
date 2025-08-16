@@ -9,8 +9,8 @@ export default function App() {
   return (
     <>
       <Helmet>
-        <title>Estância da Serra - Condomínio</title>
-        <meta name="description" content="Condomínio Estância da Serra - viva perto da natureza com segurança e qualidade de vida." />
+        <title>Estância da Serra - Chacreamento</title>
+        <meta name="description" content="Chacreamento Estância da Serra - viva perto da natureza com segurança e qualidade de vida." />
       </Helmet>
       <Suspense fallback={<div style={{padding:40}}>Carregando...</div>}>
         <Routes>

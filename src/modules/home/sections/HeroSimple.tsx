@@ -8,7 +8,7 @@ export function Hero() {
           Serra de Minas
         </h1>
         <p className="text-xl text-gray-700 mb-8">
-          Condomínio Estância da Serra
+          Chacreamento Estância da Serra
         </p>
         <div className="text-green-600 font-bold">
           ✅ Hero carregando corretamente!

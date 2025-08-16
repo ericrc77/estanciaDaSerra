@@ -4,7 +4,7 @@
 	"version": "0.1.0",
 	"homepage": "https://ericrc77.github.io/estanciaDaSerra/",
 	"type": "module",
-	"description": "Site institucional do Condomínio Estância da Serra - apresentação, mapa de lotes, galeria e contato.",
+	"description": "Site institucional do Chacreamento Estância da Serra - apresentação, mapa de lotes, galeria e contato.",
 	"scripts": {
 		"dev": "vite",
 		"dev:pages": "vite --base=/estanciaDaSerra/",
@@ -13,7 +13,7 @@
 		"deploy": "vite build && gh-pages -d dist"
 	},
 	"keywords": [
-		"condominio",
+		"chacreamento",
 		"lotes",
 		"imobiliario",
 		"institucional"

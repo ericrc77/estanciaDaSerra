@@ -1,6 +1,6 @@
 # Estância da Serra - Site Institucional
 
-Site institucional moderno e responsivo para o Condomínio Estância da Serra.
+Site institucional moderno e responsivo para o Chacreamento Estância da Serra.
 
 ## 🚀 Tecnologias Implementadas
 - **React 18.3.1** + TypeScript

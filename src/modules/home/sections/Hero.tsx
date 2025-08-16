@@ -1,22 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { ChevronDown, Play, MapPin } from 'lucide-react';
+import { Logo } from '../../../components/Logo';
+
+// Assets servidos via pasta public
+const heroVideo = '/media/hero-placeholder.mp4';
+const heroImage = '/media/hero.png';
 
 export function Hero() {
-  return (
-    <section id="inicio" className="relative min-h-screen h-screen w-full flex items-center justify-center overflow-hidden pt-16 md:pt-18 bg-gradient-to-br from-green-50 to-blue-50">
-      <div className="text-center text-white z-10">
-        <h1 className="text-6xl font-bold text-green-800 mb-4">
-          Serra de Minas
-        </h1>
-        <p className="text-xl text-gray-700 mb-8">
-          Condomínio Estância da Serra
-        </p>
-        <div className="text-green-600">
-          ✅ Hero carregando corretamente!
-        </div>
-      </div>
-    </section>
-  );
-}
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [showContent, setShowContent] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 500], [0, -150]);
+  const scale = useTransform(scrollY, [0, 500], [1, 1.1]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0.8]);
+
+  // Preload da imagem hero
+  useEffect(() => {
+    const img = new Image();
+    img.onload = () => setImageLoaded(true);
+    img.onerror = () => setImageError(true);
+    img.src = heroImage;
+  }, []);
+
+  useEffect(() => {
+    // Simula carregamento e exibe conteúdo suavemente
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+      setTimeout(() => setShowContent(true), 300);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
       opacity: 1,
       transition: {
         duration: 1.2,
@@ -61,13 +83,17 @@ export function Hero() {
         className="absolute inset-0 w-full h-full"
       >
         {/* Imagem de fundo */}
-        <div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{ 
-            backgroundImage: `url(${heroImage})`,
-            filter: 'brightness(0.6) contrast(1.1)'
-          }}
-        />
+        {imageLoaded && !imageError ? (
+          <div 
+            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{ 
+              backgroundImage: `url(${heroImage})`,
+              filter: 'brightness(0.6) contrast(1.1)'
+            }}
+          />
+        ) : (
+          <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-green-900 via-green-800 to-green-900" />
+        )}
         
         {/* Vídeo como fallback */}
         <video 
@@ -117,21 +143,6 @@ export function Hero() {
         animate={showContent ? "visible" : "hidden"}
         className="relative z-10 text-center px-6 max-w-7xl mx-auto w-full flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-4.5rem)]"
       >
-        {/* Stats flutuantes */}
-        <motion.div
-          variants={itemVariants}
-          className="absolute top-1/4 right-8 hidden lg:block"
-        >
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20"
-          >
-            <div className="text-white/90 text-sm font-medium">Lotes disponíveis</div>
-            <div className="text-green-400 text-2xl font-bold">120+</div>
-          </motion.div>
-        </motion.div>
-
         {/* Badge de localização */}
         <motion.div 
           variants={itemVariants}
@@ -151,7 +162,7 @@ export function Hero() {
             letterSpacing: '-0.02em'
           }}
         >
-          Um refúgio planejado em meio às{' '}
+          Um chacreamento planejado em meio às{' '}
           <span className="relative inline-block">
             <span className="bg-gradient-to-r from-green-400 via-green-500 to-green-600 bg-clip-text text-transparent">
               serras de Minas
@@ -202,7 +213,7 @@ export function Hero() {
             <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:translate-x-full transition-transform duration-700" />
             <span className="relative flex items-center gap-2">
               <Play size={18} className="group-hover:scale-110 transition-transform" />
-              Ver Vídeo
+              Ver Galeria
             </span>
           </button>
         </motion.div>
@@ -251,105 +262,6 @@ export function Hero() {
           </button>
         </motion.div>
       </motion.div>
-
-      {/* Partículas flutuantes sofisticadas */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Partículas grandes */}
-        {[...Array(4)].map((_, i) => (
-          <motion.div
-            key={`large-${i}`}
-            className="absolute w-2 h-2 bg-white/15 rounded-full"
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: window.innerHeight + 100,
-            }}
-            animate={{
-              y: -100,
-              opacity: [0, 0.6, 0],
-            }}
-            transition={{
-              duration: Math.random() * 8 + 8,
-              repeat: Infinity,
-              delay: Math.random() * 3,
-              ease: "linear"
-            }}
-          />
-        ))}
-        
-        {/* Partículas médias */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={`medium-${i}`}
-            className="absolute w-1.5 h-1.5 bg-green-400/20 rounded-full"
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: window.innerHeight + 50,
-            }}
-            animate={{
-              y: -50,
-              opacity: [0, 0.8, 0],
-              scale: [0.8, 1.2, 0.8],
-            }}
-            transition={{
-              duration: Math.random() * 6 + 6,
-              repeat: Infinity,
-              delay: Math.random() * 4,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-        
-        {/* Partículas pequenas */}
-        {[...Array(12)].map((_, i) => (
-          <motion.div
-            key={`small-${i}`}
-            className="absolute w-1 h-1 bg-white/10 rounded-full"
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: window.innerHeight + 30,
-            }}
-            animate={{
-              y: -30,
-              opacity: [0, 0.4, 0],
-              x: [`${Math.random() * window.innerWidth}px`, `${Math.random() * window.innerWidth}px`],
-            }}
-            transition={{
-              duration: Math.random() * 10 + 5,
-              repeat: Infinity,
-              delay: Math.random() * 6,
-              ease: "linear"
-            }}
-          />
-        ))}
-        
-        {/* Efeito de orbes flutuantes nos cantos */}
-        <motion.div
-          animate={{
-            opacity: [0.1, 0.3, 0.1],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-20 right-20 w-32 h-32 bg-green-400/5 rounded-full blur-xl"
-        />
-        
-        <motion.div
-          animate={{
-            opacity: [0.05, 0.2, 0.05],
-            scale: [1.2, 1, 1.2],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
-          }}
-          className="absolute bottom-32 left-16 w-40 h-40 bg-blue-400/5 rounded-full blur-xl"
-        />
-      </div>
     </section>
   );
 }

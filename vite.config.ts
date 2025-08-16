@@ -12,6 +12,11 @@ export default defineConfig(({ command, mode }) => {
   return {
     base: (isDevelopment || isLocalBuild) ? '/' : '/estanciaDaSerra/',
     plugins: [react()],
+    esbuild: {
+      loader: 'tsx',
+      include: /src\/.*\.[tj]sx?$/,
+      exclude: []
+    },
     server: { 
       port: 5173,
       host: true,

@@ -1,7 +1,11 @@
+
 import { motion } from 'framer-motion';
 import { FaInstagram, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt, FaHandshake } from 'react-icons/fa';
+import React, { useState } from 'react';
+import ChatBot from '../../../components/ChatBot';
 
 export function Contact() {
+  const [showChat, setShowChat] = useState(false);
   const contactInfo = [
     {
       icon: FaPhone,
@@ -146,17 +150,17 @@ export function Contact() {
             <p className="text-lg opacity-90 mb-6">
               Agende uma visita e descubra o seu futuro lar
             </p>
-            <motion.a
-              href="https://wa.me/5533986002700?text=Olá! Gostaria de agendar uma visita à Estância da Serra."
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.button
+              type="button"
               className="inline-flex items-center gap-3 bg-white text-brand-green-700 px-8 py-4 rounded-full font-semibold hover:bg-brand-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl border border-brand-green-100"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => setShowChat(true)}
             >
               <FaHandshake className="w-5 h-5" />
               <span>Agendar Visita</span>
-            </motion.a>
+            </motion.button>
+            {showChat && <ChatBot userId={String(Date.now())} />}
           </motion.div>
         </motion.div>
       </div>

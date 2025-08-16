@@ -15,9 +15,57 @@ html, body {
   padding: 0;
 }
 
+/* Navbar Creative Border Design */
+.navbar-creative-border {
+  position: relative;
+  backdrop-filter: blur(16px);
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  border: none;
+  border-radius: 0;
+  box-shadow: 
+    0 8px 32px rgba(0,0,0,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+  margin: 0;
+}
+
+.navbar-creative-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, #667A2B, #FF8A00, #667A2B);
+  border-radius: 0;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.navbar-creative-border:hover::before {
+  opacity: 0.7;
+}
+
+.navbar-scrolled {
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%);
+  border-color: transparent;
+  box-shadow: 
+    0 12px 40px rgba(0,0,0,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.navbar-logo-glow {
+  filter: drop-shadow(0 0 8px rgba(102,122,43,0.3));
+}
+
+/* Snap Scroll */
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
 /* Smooth scrolling com melhor performance */
 html { 
-  scroll-behavior: smooth; 
   font-feature-settings: "cv11", "ss01", "liga", "calt"; 
   font-optical-sizing: auto;
   font-variant-numeric: oldstyle-nums;
@@ -37,6 +85,33 @@ body {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-display: swap;
   will-change: auto;
+}
+
+/* ===== SCROLL SNAP PARA SEÇÕES ===== */
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  min-height: 80vh;
+}
+
+.snap-section:first-of-type {
+  padding-top: 0;
+}
+
+.snap-hero {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .snap-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    min-height: 70vh;
+  }
 }
 
 /* Otimizações de performance */
@@ -60,6 +135,85 @@ img, video {
 
 /* ===== TIPOGRAFIA FLUÍDA E MODERNA - MELHORADA ===== */
 @layer utilities {
+  /* ===== Estilos minimalistas para novo Hero ===== */
+  .hero-kicker {
+    font-size: clamp(0.75rem, 0.9rem + 0.3vw, 1rem);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: rgba(255,255,255,0.75);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+  }
+  .hero-kicker::before, .hero-kicker::after {
+    content: '';
+    height: 1px;
+    width: 32px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.15), rgba(255,255,255,0.6));
+  }
+  .hero-kicker::before { margin-right: 0.25rem; }
+  .hero-kicker::after { margin-left: 0.25rem; }
+
+  .hero-title-minimal {
+    font-size: clamp(2.4rem, 4.2vw, 4.5rem);
+    line-height: 1.05;
+    font-weight: 700;
+    color: #000000 !important;
+    letter-spacing: -0.02em;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+  }
+  .hero-title-minimal.text-white { background: none; color: #ffffff !important; }
+  .hero-title-minimal.text-black { background: none; color: #000000 !important; }
+  @media (max-width: 640px) {
+    .hero-title-minimal { font-size: clamp(2rem, 8vw, 2.8rem); }
+  }
+
+  .hero-subtitle-minimal {
+    font-size: clamp(1rem, 1.05rem + 0.4vw, 1.35rem);
+    line-height: 1.45;
+    font-weight: 400;
+  color: #ffffff;
+    max-width: 56ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-fade-edge {
+    position: relative;
+  }
+  .hero-fade-edge:after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 120%, rgba(0,0,0,0.55), transparent 60%);
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+  .hero-scroll-hint-line {
+    width: 1px;
+    height: 52px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0));
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-scroll-hint-line span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 16px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    animation: heroScrollPulse 2.8s ease-in-out infinite;
+  }
+  @keyframes heroScrollPulse {
+    0% { transform: translateY(-16px); opacity: 0; }
+    10% { opacity: 1; }
+    60% { transform: translateY(42px); opacity: 0; }
+    100% { opacity: 0; }
+  }
   /* Hero - tipografia otimizada para máxima visibilidade */
   .text-fluid-hero { 
     font-size: clamp(2.2rem, 5.5vw, 4.8rem); 
@@ -202,6 +356,13 @@ img, video {
   max-width: 100%;
 }
 
+.word-break-normal {
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  white-space: normal !important;
+  hyphens: none !important;
+}
+
 .text-container {
   max-width: 100%;
   overflow: hidden;
@@ -280,6 +441,27 @@ img, video {
   
   @media (min-width: 1024px) {
     .logo-navbar { height: 3.5rem; }
+  }
+
+  /* Logo menor para navbar compacta */
+  .logo-navbar-small {
+    height: 2rem; /* Extra small size */
+  }
+  
+  @media (min-width: 360px) {
+    .logo-navbar-small { height: 2.25rem; }
+  }
+  
+  @media (min-width: 430px) {
+    .logo-navbar-small { height: 2.5rem; }
+  }
+  
+  @media (min-width: 768px) {
+    .logo-navbar-small { height: 2.75rem; }
+  }
+  
+  @media (min-width: 1024px) {
+    .logo-navbar-small { height: 3rem; }
   }
   
   /* Tamanhos para o hero - otimizado para logo larga */

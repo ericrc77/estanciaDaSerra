@@ -1,327 +1,365 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Play, MapPin } from 'lucide-react';
 import { Logo } from '../../../components/Logo';
 
 // Assets servidos via pasta public
 const heroVideo = '/media/hero-placeholder.mp4';
 const heroImage = '/media/hero.png';
-const logo = '/media/logo-provisoria.jpeg';
 
 export function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageError, setImageError] = useState(false);
-  const [pageFullyLoaded, setPageFullyLoaded] = useState(false);
-  const [blurLevel, setBlurLevel] = useState(0);
+  const [showContent, setShowContent] = useState(false);
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
+  const scale = useTransform(scrollY, [0, 400], [1, 1.1]);
 
   useEffect(() => {
-    // Aguarda a página estar totalmente carregada
-    const handlePageLoad = () => {
-      setPageFullyLoaded(true);
-    };
+    // Simula carregamento e exibe conteúdo suavemente
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+      setTimeout(() => setShowContent(true), 300);
+    }, 800);
 
-    if (document.readyState === 'complete') {
-      setPageFullyLoaded(true);
-    } else {
-      window.addEventListener('load', handlePageLoad);
-    }
-
-    // Preload otimizado da imagem hero
-    const img = new Image();
-    img.loading = 'eager';
-    img.fetchPriority = 'high';
-    
-    img.onload = () => {
-      setImageLoaded(true);
-      
-      // Só inicia o blur quando a página estiver totalmente carregada
-      const checkAndStartBlur = () => {
-        if (pageFullyLoaded) {
-          startBlurAnimation();
-        } else {
-          // Verifica novamente em 100ms
-          setTimeout(checkAndStartBlur, 100);
-        }
-      };
-      
-  setTimeout(checkAndStartBlur, 4500); // Aguarda 4.5s após a imagem carregar
-    };
-    
-    img.onerror = () => {
-      setImageError(true);
-      console.log('hero.png não encontrada, usando vídeo');
-      
-      const checkAndStartBlur = () => {
-        if (pageFullyLoaded) {
-          startBlurAnimation();
-        } else {
-          setTimeout(checkAndStartBlur, 100);
-        }
-      };
-      
-  setTimeout(checkAndStartBlur, 4500); // Atraso consistente no fallback
-    };
-    
-    img.src = heroImage;
-
-    return () => {
-      window.removeEventListener('load', handlePageLoad);
-    };
-  }, [pageFullyLoaded]);
-
-  const startBlurAnimation = () => {
-    const startTime = Date.now();
-    const duration = 4000; // 4 segundos para o blur completo
-    
-    const animateBlur = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      
-      // Função de easing suave
-      const easeOutCubic = 1 - Math.pow(1 - progress, 3);
-  setBlurLevel(easeOutCubic * 4); // Máximo de 4px de blur
-      
-  // Inicia o conteúdo quando o blur está em 25%
-  if (progress >= 0.25 && !isLoaded) {
-        setIsLoaded(true);
-      }
-      
-      if (progress < 1) {
-        requestAnimationFrame(animateBlur);
-      }
-    };
-    
-    requestAnimationFrame(animateBlur);
-  };
+    return () => clearTimeout(timer);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        duration: 1.8,
-        staggerChildren: 0.4,
-        delayChildren: 0.3
+        duration: 1.2,
+        staggerChildren: 0.3,
+        delayChildren: 0.2
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 80, scale: 0.9 },
+    hidden: { opacity: 0, y: 60, scale: 0.9 },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
       transition: {
-        duration: 1.2,
+        duration: 1,
         ease: [0.25, 0.1, 0.25, 1]
       }
     }
   };
 
   const logoVariants = {
-    hidden: { opacity: 0, y: -40, scale: 0.8 },
+    hidden: { opacity: 0, y: -30, scale: 0.8 },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
       transition: {
-        duration: 1.4,
+        duration: 1.2,
         ease: [0.25, 0.1, 0.25, 1],
-        delay: 0.2
+        delay: 0.5
       }
     }
   };
 
   return (
-    <section id="inicio" className="relative min-h-[100svh] h-[100dvh] xl:h-[95vh] w-full flex items-center justify-center overflow-hidden pb-safe pt-1">
-      {/* Background com Parallax - Imagem prioritária */}
+    <section id="inicio" className="relative min-h-screen h-screen w-full flex items-center justify-center overflow-hidden pt-16 md:pt-18">
+      {/* Background com Parallax */}
       <motion.div
-        style={{ y }}
-        className="absolute inset-0 w-full h-[120%] -top-[10%]"
+        style={{ y, scale }}
+        className="absolute inset-0 w-full h-full"
       >
-        {/* Imagem de fundo principal - só aparece se carregou com sucesso */}
-        {imageLoaded && !imageError && (
+        {/* Imagem de fundo */}
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{ 
+            backgroundImage: `url(${heroImage})`,
+            filter: 'brightness(0.6) contrast(1.1)'
+          }}
+        />
+        
+        {/* Vídeo como fallback */}
+        <video 
+          autoPlay 
+          muted 
+          loop 
+          playsInline 
+          className="absolute inset-0 w-full h-full object-cover opacity-80" 
+          style={{ mixBlendMode: 'overlay' }}
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
+      </motion.div>
+
+      {/* Overlays sofisticados */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
+      
+      {/* Efeito de vinheta sutil */}
+      <div className="absolute inset-0" style={{
+        background: 'radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.3) 100%)'
+      }} />
+
+      {/* Loading State Minimalista */}
+      {!isLoaded && (
+        <div className="absolute inset-0 bg-black/90 flex items-center justify-center z-20">
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="absolute inset-0 w-full h-full hero-background-image brightness-[0.7]"
-            style={{ 
-              backgroundImage: `url(${heroImage})`,
-              filter: `blur(${blurLevel}px)`,
-              transition: 'filter 0.1s ease-out'
-            }}
-          />
-        )}
-        
-        {/* Vídeo como fallback - aparece se imagem falhou ou enquanto carrega */}
-        {(imageError || !imageLoaded) && (
-          <video 
-            autoPlay 
-            muted 
-            loop 
-            playsInline 
-            className="absolute inset-0 w-full h-full object-cover brightness-[0.65] scale-105" 
-            poster={logo}
-            style={{
-              filter: `blur(${blurLevel}px)`,
-              transition: 'filter 0.1s ease-out'
-            }}
-            onLoadedData={() => !imageLoaded && setIsLoaded(true)}
-            onError={(e) => {
-              (e.currentTarget as HTMLVideoElement).style.display = 'none';
-              const fallback = document.querySelector('.hero-fallback') as HTMLElement;
-              if (fallback) fallback.style.display = 'block';
-            }}
+            className="text-center"
           >
-            <source src={heroVideo} type="video/mp4" />
-          </video>
-        )}
-        
-        {/* Fallback final com imagem da galeria */}
-        <div 
-          className="hero-fallback absolute inset-0 hidden bg-center bg-cover brightness-[0.65] scale-105" 
-          style={{ 
-            backgroundImage: 'url(/gallery/1.jpg)',
-            filter: `blur(${blurLevel}px)`,
-            transition: 'filter 0.1s ease-out'
-          }} 
-        />
-      </motion.div>
-
-      {/* Gradient Overlay Sofisticado - Otimizado para logo na parte inferior */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/70" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-black/10" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-
-      {/* Loading State */}
-      {!isLoaded && (
-        <div className="absolute inset-0 bg-brand-gray-900 flex items-center justify-center z-20">
-          <motion.div className="text-center">
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              className="w-8 h-8 border-2 border-brand-green-400 border-t-transparent rounded-full mx-auto mb-4"
+              transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+              className="w-12 h-12 border-2 border-white/30 border-t-white rounded-full mx-auto mb-4"
             />
-            <p className="text-white text-sm">
-              {imageLoaded ? 'Carregando...' : imageError ? 'Carregando vídeo...' : 'Carregando imagem...'}
-            </p>
+            <p className="text-white/80 text-sm font-light tracking-wider">CARREGANDO</p>
           </motion.div>
         </div>
       )}
 
-      {/* Content */}
+      {/* Content Principal */}
       <motion.div
         style={{ opacity }}
         variants={containerVariants}
         initial="hidden"
-        animate="visible"
-  className="relative z-10 text-center px-4 xs:px-6 max-w-6xl mx-auto w-full flex flex-col justify-start items-center min-h-[100vh] pt-32 md:pt-40 pb-20 lg:pt-44 lg:pb-16"
+        animate={showContent ? "visible" : "hidden"}
+        className="relative z-10 text-center px-6 max-w-7xl mx-auto w-full flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-4.5rem)]"
       >
+        {/* Stats flutuantes */}
+        <motion.div
+          variants={itemVariants}
+          className="absolute top-1/4 right-8 hidden lg:block"
+        >
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20"
+          >
+            <div className="text-white/90 text-sm font-medium">Lotes disponíveis</div>
+            <div className="text-green-400 text-2xl font-bold">120+</div>
+          </motion.div>
+        </motion.div>
+
+        {/* Badge de localização */}
+        <motion.div 
+          variants={itemVariants}
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8 hover:bg-white/15 transition-all duration-300"
+        >
+          <MapPin size={16} className="text-green-400" />
+          <span className="text-white/90 text-sm font-medium tracking-wide">Serras de Minas Gerais</span>
+        </motion.div>
+
+        {/* Título principal */}
         <motion.h1 
           variants={itemVariants}
-          className="text-fluid-hero font-extrabold tracking-tight text-white max-w-5xl mx-auto leading-tight break-words hyphens-auto safe-margins overflow-safe order-1 mb-6 lg:mb-8"
+          className="text-white mb-6 max-w-5xl mx-auto leading-tight"
+          style={{
+            fontSize: 'clamp(2.5rem, 6vw, 5rem)',
+            fontWeight: 700,
+            letterSpacing: '-0.02em'
+          }}
         >
-          Um Condomínio em Construção no{' '}
-          <span className="text-white font-extrabold">
-            Coração da Natureza
+          Um refúgio planejado em meio às{' '}
+          <span className="relative inline-block">
+            <span className="bg-gradient-to-r from-green-400 via-green-500 to-green-600 bg-clip-text text-transparent">
+              serras de Minas
+            </span>
+            {/* Linha decorativa sob o texto em destaque */}
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: '100%' }}
+              transition={{ duration: 1.5, delay: 1 }}
+              className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-green-400 to-green-600 rounded-full opacity-70"
+            />
           </span>
         </motion.h1>
 
+        {/* Subtítulo */}
         <motion.p 
           variants={itemVariants}
-          className="text-fluid-base text-white/95 max-w-3xl mx-auto mt-2 md:mt-4 lg:mt-6 leading-relaxed font-medium break-words hyphens-auto safe-margins overflow-safe order-2 mb-8 lg:mb-10"
+          className="text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed"
+          style={{
+            fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)',
+            textShadow: '0 2px 8px rgba(0,0,0,0.4)'
+          }}
         >
-          A Estância da Serra está ganhando forma: estradas internas em finalização e preparação do terreno. 
-          Acompanhe a evolução e garante prioridade nas próximas etapas.
+          Infraestrutura em evolução. Natureza preservada. Um projeto que nasce agora para valorizar no tempo. 
+          <br className="hidden md:block" />
+          Descubra cada etapa desta jornada única.
         </motion.p>
 
+        {/* Botões de ação */}
         <motion.div 
           variants={itemVariants}
-          className="flex flex-col phone:flex-row gap-4 sm:gap-6 justify-center mt-6 md:mt-8 lg:mt-10 order-3 mb-8"
+          className="flex flex-col sm:flex-row gap-4 mb-16"
         >
-          <motion.a 
-            href="#progresso" 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            className="btn-primary-responsive"
+          <button
+            onClick={() => document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' })}
+            className="group relative px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-full hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg overflow-hidden"
           >
-            Ver Progresso
-            <motion.span
-              className="inline-block ml-2"
-              animate={{ x: [0, 4, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            >
-              →
-            </motion.span>
-          </motion.a>
+            {/* Efeito de brilho no hover */}
+            <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
+            <span className="relative flex items-center gap-2">
+              Explorar Projeto
+              <ChevronDown size={18} className="group-hover:translate-y-1 transition-transform" />
+            </span>
+          </button>
           
-          <motion.a 
-            href="#contato" 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            className="btn-secondary-responsive"
-          >
-            Entre em Contato
-          </motion.a>
+          <button className="group relative px-8 py-4 bg-white/10 backdrop-blur-md text-white font-semibold rounded-full border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all duration-300 overflow-hidden">
+            {/* Efeito shimmer sutil */}
+            <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:translate-x-full transition-transform duration-700" />
+            <span className="relative flex items-center gap-2">
+              <Play size={18} className="group-hover:scale-110 transition-transform" />
+              Ver Vídeo
+            </span>
+          </button>
         </motion.div>
 
-        {/* Logo posicionada por último para não cobrir pessoas */}
+        {/* Logo */}
         <motion.div 
           variants={logoVariants}
-          className="mt-12 md:mt-16 order-4"
+          className="mb-16"
         >
-          <Logo size="xl" animated className="mx-auto" />
+          <div className="relative">
+            <Logo size="xl" animated className="mx-auto filter drop-shadow-lg" />
+            {/* Efeito de brilho sutil atrás da logo */}
+            <div className="absolute inset-0 -z-10 bg-white/5 rounded-full blur-3xl scale-150" />
+          </div>
         </motion.div>
 
-        {/* Scroll Indicator - Abaixo da logo */}
+        {/* Scroll Indicator Elegante */}
         <motion.div
           variants={itemVariants}
-          className="mt-6 md:mt-8 flex flex-col items-center order-5"
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
         >
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="flex flex-col items-center text-white/80 cursor-pointer hover:text-white transition-colors duration-300 group"
+          <button
             onClick={() => document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' })}
+            className="group flex flex-col items-center text-white/70 hover:text-white transition-all duration-300"
+            aria-label="Rolar para baixo"
           >
-            <span className="text-xs md:text-sm mb-3 font-light tracking-wide">Role para descobrir</span>
+            {/* Linha animada */}
+            <div className="w-px h-16 bg-gradient-to-b from-transparent via-white/40 to-transparent mb-4 relative overflow-hidden">
+              <motion.div
+                animate={{ y: ['-100%', '100%'] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inset-0 w-full bg-gradient-to-b from-transparent via-white to-transparent"
+              />
+            </div>
+            
+            <span className="text-xs tracking-widest uppercase font-medium mb-2 opacity-80">
+              Role para baixo
+            </span>
+            
             <motion.div
-              whileHover={{ scale: 1.1 }}
-              className="p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 group-hover:bg-white/20 transition-all duration-300"
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             >
-              <ChevronDown size={20} className="md:w-6 md:h-6" />
+              <ChevronDown size={20} className="opacity-60 group-hover:opacity-100 transition-opacity" />
             </motion.div>
-          </motion.div>
+          </button>
         </motion.div>
       </motion.div>
 
-      {/* Particles Effect */}
+      {/* Partículas flutuantes sofisticadas */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(6)].map((_, i) => (
+        {/* Partículas grandes */}
+        {[...Array(4)].map((_, i) => (
           <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-white/30 rounded-full"
+            key={`large-${i}`}
+            className="absolute w-2 h-2 bg-white/15 rounded-full"
             initial={{
               x: Math.random() * window.innerWidth,
               y: window.innerHeight + 100,
             }}
             animate={{
               y: -100,
-              opacity: [0, 1, 0],
+              opacity: [0, 0.6, 0],
             }}
             transition={{
-              duration: Math.random() * 3 + 2,
+              duration: Math.random() * 8 + 8,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: Math.random() * 3,
+              ease: "linear"
             }}
           />
         ))}
+        
+        {/* Partículas médias */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={`medium-${i}`}
+            className="absolute w-1.5 h-1.5 bg-green-400/20 rounded-full"
+            initial={{
+              x: Math.random() * window.innerWidth,
+              y: window.innerHeight + 50,
+            }}
+            animate={{
+              y: -50,
+              opacity: [0, 0.8, 0],
+              scale: [0.8, 1.2, 0.8],
+            }}
+            transition={{
+              duration: Math.random() * 6 + 6,
+              repeat: Infinity,
+              delay: Math.random() * 4,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
+        
+        {/* Partículas pequenas */}
+        {[...Array(12)].map((_, i) => (
+          <motion.div
+            key={`small-${i}`}
+            className="absolute w-1 h-1 bg-white/10 rounded-full"
+            initial={{
+              x: Math.random() * window.innerWidth,
+              y: window.innerHeight + 30,
+            }}
+            animate={{
+              y: -30,
+              opacity: [0, 0.4, 0],
+              x: [`${Math.random() * window.innerWidth}px`, `${Math.random() * window.innerWidth}px`],
+            }}
+            transition={{
+              duration: Math.random() * 10 + 5,
+              repeat: Infinity,
+              delay: Math.random() * 6,
+              ease: "linear"
+            }}
+          />
+        ))}
+        
+        {/* Efeito de orbes flutuantes nos cantos */}
+        <motion.div
+          animate={{
+            opacity: [0.1, 0.3, 0.1],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute top-20 right-20 w-32 h-32 bg-green-400/5 rounded-full blur-xl"
+        />
+        
+        <motion.div
+          animate={{
+            opacity: [0.05, 0.2, 0.05],
+            scale: [1.2, 1, 1.2],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+          className="absolute bottom-32 left-16 w-40 h-40 bg-blue-400/5 rounded-full blur-xl"
+        />
       </div>
     </section>
   );

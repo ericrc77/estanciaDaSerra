@@ -102,22 +102,23 @@ export function Navbar() {
         variants={navVariants}
         initial="hidden"
         animate="visible"
-        className={`fixed top-1 left-0 w-full z-40 transition-all duration-500 h-16 md:h-18 ${
-          scrolled 
-            ? 'backdrop-blur-md bg-white/90 shadow-soft border-b border-black/5' 
-            : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 h-16 md:h-18`}
       >
-      <nav className="mx-auto max-w-7xl px-4 xs:px-5 phone:px-6 md:px-8 h-full flex items-center justify-between gap-4">
-        {/* Logo */}
-        <motion.a 
-          href="#inicio" 
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="flex items-center gap-2 truncate max-w-[70%] relative"
-        >
-          <Logo size="md" showText={!heroVisible} />
-        </motion.a>
+        <div className={`navbar-creative-border h-full transition-all duration-500 ${
+          scrolled ? 'navbar-scrolled' : ''
+        }`}>
+          <nav className="mx-auto max-w-7xl pl-4 pr-4 xs:pr-5 phone:pr-6 md:pr-8 h-full flex items-center justify-between gap-4">
+            {/* Logo */}
+            <motion.a 
+              href="#inicio" 
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className={`flex items-center gap-2 truncate max-w-[70%] relative transition-all duration-300 ${
+                scrolled ? 'navbar-logo-glow' : ''
+              }`}
+            >
+              <Logo size="xs" showText={false} />
+            </motion.a>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8 text-sm font-medium">
@@ -180,6 +181,7 @@ export function Navbar() {
           </motion.button>
         </div>
       </nav>
+        </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>

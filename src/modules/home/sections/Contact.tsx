@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FaInstagram, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaInstagram, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt, FaHandshake } from 'react-icons/fa';
 
 export function Contact() {
   const contactInfo = [
@@ -150,11 +150,11 @@ export function Contact() {
               href="https://wa.me/5533986002700?text=Olá! Gostaria de agendar uma visita à Estância da Serra."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center space-x-3 bg-white text-brand-green-600 px-8 py-4 rounded-full font-semibold hover:bg-brand-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="inline-flex items-center gap-3 bg-white text-brand-green-700 px-8 py-4 rounded-full font-semibold hover:bg-brand-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl border border-brand-green-100"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <FaWhatsapp className="w-5 h-5" />
+              <FaHandshake className="w-5 h-5" />
               <span>Agendar Visita</span>
             </motion.a>
           </motion.div>

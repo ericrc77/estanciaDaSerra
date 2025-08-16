@@ -1,13 +1,14 @@
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface LogoProps {
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   showText?: boolean;
   className?: string;
   animated?: boolean;
 }
 
 const sizeClasses = {
+  xs: 'logo-navbar-small',
   sm: 'logo-navbar',
   md: 'logo-navbar',
   lg: 'logo-navbar',
@@ -15,6 +16,7 @@ const sizeClasses = {
 };
 
 const logoStyles = {
+  xs: 'logo-estancia',
   sm: 'logo-estancia',
   md: 'logo-estancia',
   lg: 'logo-estancia',
@@ -22,6 +24,7 @@ const logoStyles = {
 };
 
 const textSizeClasses = {
+  xs: 'text-xs',
   sm: 'text-xs xs:text-sm',
   md: 'text-sm xs:text-base phone:text-lg',
   lg: 'text-lg xs:text-xl phone:text-2xl',
@@ -64,7 +67,7 @@ export function Logo({
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -10 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className={`font-display font-bold text-brand-green-600 tracking-wide ${textSizeClasses[size]} hidden ${size === 'sm' ? 'md:block' : 'phone:block'} truncate flex-1 min-w-0`}
+              className={`font-display font-bold text-brand-green-600 tracking-wide ${textSizeClasses[size]} hidden ${size === 'xs' || size === 'sm' ? 'md:block' : 'phone:block'} truncate flex-1 min-w-0`}
             >
               ESTÂNCIA DA SERRA
             </motion.span>
@@ -88,7 +91,7 @@ export function Logo({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -10 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className={`font-display font-bold text-brand-green-600 tracking-wide ${textSizeClasses[size]} hidden ${size === 'sm' ? 'md:block' : 'phone:block'} truncate flex-1 min-w-0`}
+            className={`font-display font-bold text-brand-green-600 tracking-wide ${textSizeClasses[size]} hidden ${size === 'xs' || size === 'sm' ? 'md:block' : 'phone:block'} truncate flex-1 min-w-0`}
           >
             ESTÂNCIA DA SERRA
           </motion.span>

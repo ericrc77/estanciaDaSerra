@@ -2,13 +2,13 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 // Configuração otimizada para GitHub Pages
-export default defineConfig(({ command, mode }) => {
-  const isProduction = mode === 'production';
-  const isDevelopment = command === 'serve';
-  const isGitHubPages = process.env.GITHUB_PAGES === 'true';
-  
+// Causa do problema anterior: variável de ambiente não aplicada no build gerou paths absolutos sem o subdiretório do projeto.
+// Estratégia: usar base '/estanciaDaSerra/' sempre em build (command === 'build') e '/' em dev.
+export default defineConfig(({ command }) => {
+  const isBuild = command === 'build';
+
   return {
-    base: isGitHubPages ? '/estanciaDaSerra/' : '/',
+    base: isBuild ? '/estanciaDaSerra/' : '/',
     plugins: [react()],
     esbuild: {
       loader: 'tsx',

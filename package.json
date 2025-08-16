@@ -10,7 +10,7 @@
 		"dev:pages": "vite --base=/estanciaDaSerra/",
 		"build": "vite build",
 		"preview": "vite preview",
-		"deploy": "set GITHUB_PAGES=true && vite build && xcopy /E /I /Y dist\\* docs\\"
+		"deploy": "rmdir /S /Q docs & vite build & xcopy /E /I /Y dist\\ docs\\ & echo Deploy pronto - faça commit e push"
 	},
 	"keywords": [
 		"chacreamento",

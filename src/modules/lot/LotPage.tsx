@@ -17,7 +17,7 @@ export default function LotPage() {
           <p><strong>Área:</strong> {lot.area_m2.toLocaleString('pt-BR')} m²</p>
           {lot.price && <p><strong>Preço:</strong> R$ {lot.price.toLocaleString('pt-BR')}</p>}
         </div>
-        <div className="rounded-lg bg-brand-dark/5 dark:bg-white/5 p-4 text-sm">
+        <div className="rounded-lg bg-brand-gray-50 p-4 text-sm">
           <p className="font-medium mb-2">Informações do Lote</p>
           <p>Conteúdo detalhado (características físicas, vista e infraestrutura prevista) será disponibilizado em etapa posterior de divulgação comercial.</p>
         </div>

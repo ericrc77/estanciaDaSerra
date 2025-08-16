@@ -1,33 +1,22 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import { ChevronDown, Play, MapPin } from 'lucide-react';
-import { Logo } from '../../../components/Logo';
-
-// Assets servidos via pasta public
-const heroVideo = '/media/hero-placeholder.mp4';
-const heroImage = '/media/hero.png';
+import React from 'react';
 
 export function Hero() {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [showContent, setShowContent] = useState(false);
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
-  const scale = useTransform(scrollY, [0, 400], [1, 1.1]);
-
-  useEffect(() => {
-    // Simula carregamento e exibe conteúdo suavemente
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-      setTimeout(() => setShowContent(true), 300);
-    }, 800);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
+  return (
+    <section id="inicio" className="relative min-h-screen h-screen w-full flex items-center justify-center overflow-hidden pt-16 md:pt-18 bg-gradient-to-br from-green-50 to-blue-50">
+      <div className="text-center text-white z-10">
+        <h1 className="text-6xl font-bold text-green-800 mb-4">
+          Serra de Minas
+        </h1>
+        <p className="text-xl text-gray-700 mb-8">
+          Condomínio Estância da Serra
+        </p>
+        <div className="text-green-600">
+          ✅ Hero carregando corretamente!
+        </div>
+      </div>
+    </section>
+  );
+}
       opacity: 1,
       transition: {
         duration: 1.2,

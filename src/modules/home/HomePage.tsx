@@ -1,5 +1,6 @@
 import { Suspense, lazy, useEffect } from 'react';
-import { Hero } from './sections/Hero';
+import { Hero } from './sections/HeroFixed';
+import { Architect } from './sections/Architect';
 
 // Lazy loaded sections
 const About = lazy(() => import('./sections/About').then(m => ({ default: m.About })));
@@ -41,6 +42,7 @@ export function HomePage() {
   return (
     <main className="flex flex-col">
       <Hero />
+      <Architect />
       <div className="snap-section">
         <Suspense fallback={<SectionFallback />}> <About /> </Suspense>
       </div>

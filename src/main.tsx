@@ -37,8 +37,8 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { has
           <div className="w-16 h-16 bg-brand-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-2xl">⚠️</span>
           </div>
-          <h2 className="text-xl font-semibold text-brand-dark-700 mb-2">Ops! Algo deu errado</h2>
-          <p className="text-brand-dark-500 mb-6">Ocorreu um erro inesperado. Por favor, recarregue a página.</p>
+          <h2 className="text-xl font-semibold text-brand-gray-700 mb-2">Ops! Algo deu errado</h2>
+          <p className="text-brand-gray-500 mb-6">Ocorreu um erro inesperado. Por favor, recarregue a página.</p>
           <button 
             onClick={() => window.location.reload()} 
             className="px-6 py-3 bg-brand-green-600 text-white rounded-full hover:bg-brand-green-700 transition-colors font-medium"
@@ -51,7 +51,7 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { has
   }
 }
 
-const basename = import.meta.env.DEV ? '/' : '/estanciaDaSerra/';
+const basename = import.meta.env.DEV ? '/' : import.meta.env.GITHUB_ACTIONS === 'true' ? '/estanciaDaSerra/' : '/';
 
 // Verifica se há redirecionamento do 404.html
 const redirect = sessionStorage.getItem('redirect');

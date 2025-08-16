@@ -6,8 +6,11 @@ export default defineConfig(({ command, mode }) => {
   const isProduction = mode === 'production';
   const isDevelopment = command === 'serve';
   
+  // Para preview local, use base '/'
+  const isLocalBuild = process.env.NODE_ENV !== 'production' || process.env.GITHUB_ACTIONS !== 'true';
+  
   return {
-    base: isDevelopment ? '/' : '/estanciaDaSerra/',
+    base: (isDevelopment || isLocalBuild) ? '/' : '/estanciaDaSerra/',
     plugins: [react()],
     server: { 
       port: 5173,

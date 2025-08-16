@@ -49,7 +49,7 @@ export function Gallery() {
         
         <motion.p 
           variants={itemVariants}
-          className="text-base text-brand-dark-600 dark:text-white/80 max-w-2xl mx-auto"
+          className="text-base text-brand-gray-600 max-w-2xl mx-auto"
         >
           Acompanhe o progresso através de registros aéreos que mostram a evolução da infraestrutura e o potencial da região.
         </motion.p>
@@ -150,7 +150,7 @@ export function Gallery() {
         className="text-center mt-12"
       >
         <motion.p 
-          className="text-sm text-brand-dark-500 dark:text-white/60 mb-6"
+          className="text-sm text-brand-gray-500 mb-6"
         >
           Novas imagens serão incorporadas à medida que o cronograma de obras avança.
         </motion.p>

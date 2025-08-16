@@ -12,14 +12,14 @@ export function Highlights() {
     <section className="section-padding max-w-6xl mx-auto" id="diferenciais">
       <div className="text-center mb-10">
         <h2 className="text-fluid-section-title font-display font-semibold text-brand-green">Diferenciais</h2>
-        <p className="text-fluid-base text-brand-dark/70 max-w-2xl mx-auto mt-3">Elementos que traduzem a proposta do empreendimento em sua fase de implantação e evolução.</p>
+        <p className="text-fluid-base text-brand-gray-600 max-w-2xl mx-auto mt-3">Elementos que traduzem a proposta do empreendimento em sua fase de implantação e evolução.</p>
       </div>
       <div className="grid-responsive-2">
         {items.map(i => (
           <div key={i.title} className="card-responsive card-hover-responsive bg-white shadow-soft flex flex-col items-start gap-3 border border-brand-green/10">
             <i.icon className="text-brand-green" size={26} />
             <h3 className="text-fluid-sm font-semibold leading-snug">{i.title}</h3>
-            <p className="text-fluid-sm text-brand-dark/70 leading-relaxed">{i.desc}</p>
+            <p className="text-fluid-sm text-brand-gray-600 leading-relaxed">{i.desc}</p>
           </div>
         ))}
       </div>

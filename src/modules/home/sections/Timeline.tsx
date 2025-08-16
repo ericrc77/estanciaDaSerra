@@ -20,7 +20,7 @@ export function Timeline() {
                   <h3 className="text-fluid-sm font-semibold leading-snug word-break-normal pr-2">{p.title}</h3>
                   <span className="text-[10px] uppercase tracking-wide px-2 py-1 rounded-full bg-brand-green/10 text-brand-green w-fit">{p.status}</span>
                 </div>
-                <p className="text-fluid-sm text-brand-dark/70 leading-relaxed">{p.desc}</p>
+                <p className="text-fluid-sm text-brand-gray-600 leading-relaxed">{p.desc}</p>
               </div>
             </div>
           ))}
@@ -35,12 +35,12 @@ export function Timeline() {
                 <h3 className="text-fluid-base font-semibold leading-snug word-break-normal">{p.title}</h3>
                 <span className="text-[10px] uppercase tracking-wide px-2 py-1 rounded-full bg-brand-green/10 text-brand-green w-fit">{p.status}</span>
               </div>
-              <p className="text-fluid-sm text-brand-dark/70 leading-relaxed">{p.desc}</p>
+              <p className="text-fluid-sm text-brand-gray-600 leading-relaxed">{p.desc}</p>
             </div>
           </div>
         ))}
       </div>
-      <p className="text-fluid-sm text-brand-dark/50 mt-6">Cronograma de execução sujeito a alterações conforme desenvolvimento do projeto.</p>
+      <p className="text-fluid-sm text-brand-gray-500 mt-6">Cronograma de execução sujeito a alterações conforme desenvolvimento do projeto.</p>
     </section>
   );
 }

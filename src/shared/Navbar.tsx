@@ -47,17 +47,17 @@ export function Navbar() {
 
   const linkVariants = {
     inactive: { 
-      color: 'inherit',
+      color: '#1f2937', // Preto mais suave mas bem legível
       scale: 1,
       transition: { duration: 0.2 }
     },
     active: { 
-      color: '#667A2B',
+      color: '#059669', // Verde vibrante que combina com o hover
       scale: 1.05,
       transition: { duration: 0.2 }
     },
     hover: {
-      color: '#FF8A00',
+      color: '#059669', // Mesmo verde para consistência visual
       scale: 1.02,
       transition: { duration: 0.2 }
     }
@@ -205,8 +205,8 @@ export function Navbar() {
                   onClick={() => setOpen(false)}
                   className={`block py-3 px-4 rounded-xl text-sm font-medium transition-all duration-200 ${
                     active === link.href.replace('#', '')
-                      ? 'text-brand-green-600 bg-brand-green-50'
-                      : 'text-brand-gray-700 hover:text-brand-orange-600 hover:bg-black/5'
+                      ? 'text-green-700 bg-green-50 font-semibold'
+                      : 'text-gray-800 hover:text-green-600 hover:bg-green-50 font-medium'
                   }`}
                 >
                   {link.label}

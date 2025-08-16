@@ -16,11 +16,11 @@ const sizeClasses = {
 };
 
 const logoStyles = {
-  xs: 'logo-estancia',
-  sm: 'logo-estancia',
-  md: 'logo-estancia',
-  lg: 'logo-estancia',
-  xl: 'logo-estancia logo-estancia-hero'
+  xs: 'logo-estancia rounded-2xl',
+  sm: 'logo-estancia rounded-2xl',
+  md: 'logo-estancia rounded-2xl',
+  lg: 'logo-estancia rounded-2xl',
+  xl: 'logo-estancia logo-estancia-hero rounded-2xl'
 };
 
 const textSizeClasses = {

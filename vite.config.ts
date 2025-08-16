@@ -17,12 +17,6 @@ export default defineConfig(({ command, mode }) => {
       host: true,
       open: true,
       cors: true,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        'Content-Type': 'application/javascript; charset=utf-8'
-      },
       middlewareMode: false,
       fs: {
         strict: false,

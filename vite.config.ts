@@ -21,6 +21,7 @@ export default defineConfig(({ command, mode }) => {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Content-Type': 'application/javascript; charset=utf-8'
       },
       middlewareMode: false,
       fs: {
@@ -68,7 +69,9 @@ export default defineConfig(({ command, mode }) => {
           assetFileNames: 'assets/[name]-[hash].[ext]'
         }
       },
-      chunkSizeWarningLimit: 1000
+      chunkSizeWarningLimit: 1000,
+      // Desabilita modulepreload para evitar problemas de MIME type
+      modulePreload: false
     },
     publicDir: 'public',
     resolve: {

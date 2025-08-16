@@ -1,0 +1,49 @@
+# Headers para GitHub Pages e outros hosts
+/*
+  # Configurações de segurança
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  
+  # MIME types para JavaScript modules
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self'
+
+# JavaScript e TypeScript files
+/*.js
+  Content-Type: application/javascript; charset=utf-8
+
+/*.tsx
+  Content-Type: application/javascript; charset=utf-8
+
+/*.ts
+  Content-Type: application/javascript; charset=utf-8
+
+/*.mjs
+  Content-Type: application/javascript; charset=utf-8
+
+# CSS files
+/*.css
+  Content-Type: text/css; charset=utf-8
+
+# Imagens
+/*.jpg
+  Content-Type: image/jpeg
+  Cache-Control: public, max-age=31536000
+
+/*.jpeg
+  Content-Type: image/jpeg
+  Cache-Control: public, max-age=31536000
+
+/*.png
+  Content-Type: image/png
+  Cache-Control: public, max-age=31536000
+
+/*.svg
+  Content-Type: image/svg+xml
+  Cache-Control: public, max-age=31536000
+
+# Videos
+/*.mp4
+  Content-Type: video/mp4
+  Cache-Control: public, max-age=31536000

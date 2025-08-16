@@ -1,0 +1,33 @@
+# Configurações para GitHub Pages
+# MIME types para modules JavaScript
+AddType application/javascript .js
+AddType application/javascript .mjs
+AddType application/javascript .tsx
+AddType application/javascript .ts
+
+# Headers de segurança
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # MIME type para JavaScript modules
+    <FilesMatch "\.(js|mjs|tsx|ts)$">
+        Header set Content-Type "application/javascript; charset=utf-8"
+    </FilesMatch>
+    
+    # Cache para assets estáticos
+    <FilesMatch "\.(jpg|jpeg|png|gif|svg|css|js|woff|woff2|ttf|eot)$">
+        Header set Cache-Control "public, max-age=31536000"
+    </FilesMatch>
+</IfModule>
+
+# Fallback para SPA
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /estanciaDaSerra/
+    RewriteRule ^index\.html$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /estanciaDaSerra/index.html [L]
+</IfModule>

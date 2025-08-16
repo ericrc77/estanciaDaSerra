@@ -16,12 +16,25 @@ export function About() {
   const { containerVariants, itemVariants } = useStaggerChildren(0.1);
 
   return (
-    <section id="sobre" className="px-4 xs:px-6 max-w-6xl mx-auto overflow-hidden">
+    <section 
+      id="sobre" 
+      className="relative px-4 xs:px-6 max-w-6xl mx-auto overflow-hidden"
+      style={{
+        backgroundImage: `url('/media/terreno.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      {/* Overlay para melhor legibilidade */}
+      <div className="absolute inset-0 bg-white/85 dark:bg-gray-900/85 backdrop-blur-sm" />
+      
       <motion.div 
         ref={ref}
         animate={controls}
         variants={variants}
-        className="grid md:grid-cols-2 gap-12 lg:gap-16 items-start w-full"
+        className="relative z-10 grid md:grid-cols-2 gap-12 lg:gap-16 items-start w-full py-16"
       >
         <div className="order-2 md:order-1 space-y-8 w-full">
           <motion.header

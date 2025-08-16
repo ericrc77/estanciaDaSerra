@@ -6,8 +6,8 @@ export function Contact() {
     {
       icon: FaPhone,
       label: 'Telefone',
-      value: '(11) 99999-9999',
-      href: 'tel:+5511999999999',
+      value: '+55 33 9860-0270',
+      href: 'tel:+5533986002700',
       color: 'text-brand-green-600'
     },
     {
@@ -20,7 +20,7 @@ export function Contact() {
     {
       icon: FaMapMarkerAlt,
       label: 'Localização',
-      value: 'Campos do Jordão, SP',
+      value: 'Iapu, MG',
       href: '#location',
       color: 'text-brand-gray-600'
     }
@@ -37,7 +37,7 @@ export function Contact() {
     {
       icon: FaWhatsapp,
       label: 'WhatsApp',
-      href: 'https://wa.me/5511999999999',
+      href: 'https://wa.me/5533986002700',
       color: 'hover:text-green-500',
       bgColor: 'hover:bg-green-50'
     }
@@ -147,7 +147,7 @@ export function Contact() {
               Agende uma visita e descubra o seu futuro lar
             </p>
             <motion.a
-              href="https://wa.me/5511999999999?text=Olá! Gostaria de agendar uma visita à Estância da Serra."
+              href="https://wa.me/5533986002700?text=Olá! Gostaria de agendar uma visita à Estância da Serra."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-3 bg-white text-brand-green-600 px-8 py-4 rounded-full font-semibold hover:bg-brand-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl"

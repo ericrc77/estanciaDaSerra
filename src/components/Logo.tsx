@@ -53,7 +53,7 @@ export function Logo({
         className={`flex items-center gap-2 w-full max-w-full ${className}`}
       >
         <img 
-          src="/media/logo-provisoria.jpeg" 
+          src="/media/logomaislarga.jpeg" 
           alt="Estância da Serra" 
           className={`${sizeClasses[size]} ${logoStyles[size]} object-contain flex-shrink-0`}
         />
@@ -77,7 +77,7 @@ export function Logo({
   return (
     <div className={`flex items-center gap-2 w-full max-w-full ${className}`}>
       <img 
-        src="/media/logo-provisoria.jpeg" 
+        src="/media/logomaislarga.jpeg" 
         alt="Estância da Serra" 
         className={`${sizeClasses[size]} ${logoStyles[size]} object-contain flex-shrink-0`}
       />

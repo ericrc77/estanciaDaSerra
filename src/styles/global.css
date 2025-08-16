@@ -2,342 +2,950 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Prevenção de overflow horizontal e texto responsivo */
+/* ===== CONFIGURAÇÕES GLOBAIS MODERNAS ===== */
 * {
   box-sizing: border-box;
+  max-width: 100%;
 }
 
 html, body {
   overflow-x: hidden;
   max-width: 100vw;
+  margin: 0;
+  padding: 0;
 }
 
-/* Smooth scrolling */
+/* Smooth scrolling com melhor performance */
 html { 
   scroll-behavior: smooth; 
-  font-feature-settings: "cv11", "ss01"; 
+  font-feature-settings: "cv11", "ss01", "liga", "calt"; 
   font-optical-sizing: auto;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-variant-numeric: oldstyle-nums;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body { 
-  @apply antialiased bg-white text-brand-gray-800 font-sans; 
-  line-height: 1.6;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  position: relative;
-  width: 100%;
+  text-rendering: optimizeLegibility;
+  background: linear-gradient(135deg, #f8faf9 0%, #ffffff 100%);
+  color: #1f2937;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-display: swap;
+  will-change: auto;
 }
 
-/* Prevenção de quebra de palavras longas */
-.word-break-keep {
-  word-break: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;
-}
-
-/* Garantir que textos não passem dos limites */
-.text-container {
+/* Otimizações de performance */
+img, video {
   max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  height: auto;
+  font-display: swap;
 }
 
-body::selection { background: rgba(102, 122, 43, 0.2); }
+/* Preload hints para melhor performance */
+.preload-hint {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
 
-.container { @apply mx-auto; }
+/* Seleção de texto elegante */
+*::selection { 
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(251, 146, 60, 0.2));
+  color: #059669;
+}
 
-/* Tipografia fluida responsiva */
+/* ===== TIPOGRAFIA FLUÍDA E MODERNA - MELHORADA ===== */
 @layer utilities {
-  /* Hero - escala suave entre dispositivos */
+  /* Hero - tipografia otimizada para máxima visibilidade */
   .text-fluid-hero { 
-    font-size: clamp(1.875rem, 6vw + 0.5rem, 4rem); 
-    line-height: clamp(1.1, 1.2, 1.3); 
-    letter-spacing: -0.02em;
-  }
-  
-  /* Títulos de seção - proporção consistente */
-  .text-fluid-section-title { 
-    font-size: clamp(1.5rem, 4vw + 0.5rem, 2.75rem); 
-    line-height: clamp(1.15, 1.2, 1.25); 
+    font-size: clamp(2.2rem, 5.5vw, 4.8rem); 
+    line-height: clamp(1.05, 1.1, 1.15); 
     letter-spacing: -0.015em;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 
+      0 6px 20px rgba(0, 0, 0, 0.9), 
+      0 3px 8px rgba(0, 0, 0, 0.8),
+      0 1px 3px rgba(0, 0, 0, 0.7),
+      2px 2px 0px rgba(0, 0, 0, 0.4);
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    filter: contrast(1.1) brightness(1.05);
   }
   
-  /* Texto base responsivo */
+  /* Títulos de seção com cores vibrantes */
+  .text-fluid-section-title { 
+    font-size: clamp(1.8rem, 4.2vw, 3.2rem); 
+    line-height: clamp(1.15, 1.2, 1.25); 
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    color: #065f46;
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    text-shadow: 0 2px 4px rgba(6, 95, 70, 0.3);
+  }
+  
+  /* Texto base com contraste máximo */
   .text-fluid-base {
-    font-size: clamp(0.875rem, 2.5vw + 0.25rem, 1.125rem);
-    line-height: clamp(1.5, 1.6, 1.7);
+    font-size: clamp(1.1rem, 2.8vw, 1.3rem);
+    line-height: clamp(1.6, 1.7, 1.8);
+    color: #ffffff;
+    font-weight: 500;
+    text-shadow: 
+      0 3px 12px rgba(0, 0, 0, 0.9), 
+      0 2px 6px rgba(0, 0, 0, 0.8),
+      0 1px 3px rgba(0, 0, 0, 0.6);
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    filter: contrast(1.1);
   }
   
-  /* Texto pequeno responsivo */
+  /* Texto para seções claras */
+  .text-fluid-light {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    line-height: clamp(1.6, 1.7, 1.8);
+    color: #374151;
+    font-weight: 400;
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Texto pequeno elegante */
   .text-fluid-sm {
-    font-size: clamp(0.75rem, 2vw + 0.125rem, 0.875rem);
-    line-height: clamp(1.4, 1.5, 1.6);
+    font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+    line-height: clamp(1.5, 1.6, 1.7);
+    color: #6b7280;
+    font-weight: 400;
   }
   
-  /* Spacing responsivo */
+  /* Texto destacado com cor verde */
+  .text-fluid-accent {
+    font-size: clamp(1.1rem, 2.8vw, 1.3rem);
+    line-height: clamp(1.5, 1.6, 1.7);
+    color: #059669;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(5, 150, 105, 0.3);
+  }
+  
+  /* Espaçamentos seguros para todas as telas */
   .section-padding {
     padding-top: clamp(3rem, 8vw, 6rem);
     padding-bottom: clamp(3rem, 8vw, 6rem);
   }
+  
   .container-padding {
-    padding-left: clamp(1rem, 4vw, 2rem);
-    padding-right: clamp(1rem, 4vw, 2rem);
+    padding-left: clamp(1rem, 4vw, 2.5rem);
+    padding-right: clamp(1rem, 4vw, 2.5rem);
+    max-width: 100vw;
+    overflow: hidden;
+  }
+  
+  .safe-margins {
+    margin-left: clamp(0.5rem, 2vw, 1rem);
+    margin-right: clamp(0.5rem, 2vw, 1rem);
+    max-width: calc(100vw - clamp(1rem, 4vw, 2rem));
   }
   
   .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
-  .pb-safe { padding-bottom: max(env(safe-area-inset-bottom), 1.25rem); }
+  .pb-safe { padding-bottom: max(env(safe-area-inset-bottom), 1.5rem); }
 }
 
-/* Estilos do Carousel (Swiper) */
-.gallery-swiper .swiper-pagination {
-  bottom: 0 !important;
+/* ===== COMPONENTES MODERNOS ===== */
+
+/* Carousel (Swiper) com design refinado */
+.gallery-swiper {
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
+
+.gallery-swiper .swiper-pagination {
+  bottom: 1rem !important;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
 .gallery-swiper .swiper-pagination-bullet {
-  background: rgba(102, 122, 43, 0.4);
+  background: rgba(255, 255, 255, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.6);
   width: 12px;
   height: 12px;
-  transition: all 0.3s ease;
-}
-.gallery-swiper .swiper-pagination-bullet-active {
-  background: #667A2B;
-  transform: scale(1.2);
-}
-.gallery-swiper .swiper-slide-shadow-left,
-.gallery-swiper .swiper-slide-shadow-right {
-  background-image: none;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(8px);
 }
 
-/* Logo provisória - garantindo qualidade visual em todas as dimensões */
+.gallery-swiper .swiper-pagination-bullet-active {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  border-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.3);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+}
+
+.gallery-swiper .swiper-slide {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-swiper .swiper-slide:not(.swiper-slide-active) {
+  opacity: 0.7;
+  transform: scale(0.95);
+}
+
+/* Utilitários de quebra de texto melhorados */
+.word-break-keep {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+}
+
+.text-container {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Container responsivo global */
+.container { 
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+/* ===== SISTEMA DE LOGO MODERNO ===== */
 @layer components {
-  /* Barra decorativa superior estilosa */
+  /* Barra decorativa superior minimalista */
   .decorative-bar {
     background: linear-gradient(90deg, 
-      #667A2B 0%, 
-      #7da947 25%, 
-      #FF8A00 50%, 
-      #7da947 75%, 
-      #667A2B 100%
+      #22c55e 0%, 
+      #16a34a 25%, 
+      #fb923c 50%, 
+      #16a34a 75%, 
+      #22c55e 100%
     );
-    box-shadow: 0 2px 8px rgba(102, 122, 43, 0.3);
+    box-shadow: 0 4px 16px rgba(34, 197, 94, 0.2);
   }
   
   .decorative-bar-inner {
     background: linear-gradient(90deg, 
       transparent 0%, 
-      rgba(255, 255, 255, 0.3) 50%, 
+      rgba(255, 255, 255, 0.4) 50%, 
       transparent 100%
     );
-    animation: shimmer 3s ease-in-out infinite;
+    animation: shimmer 4s ease-in-out infinite;
   }
   
   @keyframes shimmer {
-    0%, 100% { opacity: 0.3; }
+    0%, 100% { opacity: 0.2; }
     50% { opacity: 0.8; }
   }
   
+  /* Logo com design clean e moderno */
   .logo-estancia {
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     object-fit: contain;
-    background: white;
-    padding: 4px;
+    background: transparent;
+    padding: 0;
+    filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.1));
   }
   
   .logo-estancia:hover {
-    transform: scale(1.02);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05) translateY(-2px);
+    filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.15));
   }
   
-  /* Tamanhos responsivos para navbar */
+  /* Tamanhos responsivos para navbar - otimizados */
   .logo-navbar {
-    height: 2rem; /* 32px - celular pequeno */
+    height: 2.5rem; /* Base size */
   }
   
   @media (min-width: 360px) {
-    .logo-navbar { height: 2.25rem; } /* 36px - celular grande */
+    .logo-navbar { height: 2.75rem; }
   }
   
   @media (min-width: 430px) {
-    .logo-navbar { height: 2.5rem; } /* 40px - telefone */
+    .logo-navbar { height: 3rem; }
   }
   
   @media (min-width: 768px) {
-    .logo-navbar { height: 2.75rem; } /* 44px - tablet */
+    .logo-navbar { height: 3.25rem; }
   }
   
   @media (min-width: 1024px) {
-    .logo-navbar { height: 3rem; } /* 48px - desktop */
+    .logo-navbar { height: 3.5rem; }
   }
   
-  /* Tamanhos para o hero */
+  /* Tamanhos para o hero - otimizado para logo larga */
   .logo-hero {
-    width: 240px; /* celular pequeno */
-    max-width: 85vw;
+    width: clamp(240px, 35vw, 450px);
+    max-width: 90vw;
     height: auto;
   }
   
-  @media (min-width: 360px) {
-    .logo-hero { width: 280px; } /* celular grande */
-  }
-  
-  @media (min-width: 430px) {
-    .logo-hero { width: 320px; } /* telefone */
-  }
-  
-  @media (min-width: 768px) {
-    .logo-hero { width: 380px; } /* tablet */
-  }
-  
-  @media (min-width: 1024px) {
-    .logo-hero { width: 420px; } /* desktop pequeno */
-  }
-  
-  @media (min-width: 1280px) {
-    .logo-hero { width: 460px; } /* desktop grande */
-  }
-  
-  /* Melhorias visuais específicas para a logo provisória */
+  /* Design especial para logo do hero */
   .logo-estancia-hero {
-    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3));
-    border-radius: 12px;
-    background: linear-gradient(145deg, #ffffff, #f8f9fa);
-    padding: 8px;
-    border: 2px solid rgba(102, 122, 43, 0.1);
+    filter: drop-shadow(0 12px 48px rgba(0, 0, 0, 0.4));
+    border-radius: 20px;
+    background: transparent;
+    padding: 0;
+    border: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  /* Otimizações para imagem hero */
+  .logo-estancia-hero:hover {
+    filter: drop-shadow(0 16px 64px rgba(0, 0, 0, 0.5));
+    transform: scale(1.02) translateY(-4px);
+  }
+  
+  /* Background hero otimizado */
   .hero-background-image {
     background-attachment: fixed;
-    background-position: center 40%; /* Posiciona um pouco acima do centro para mostrar melhor as pessoas */
+    background-position: center 35%;
     background-repeat: no-repeat;
     background-size: cover;
     will-change: transform;
-    transform: scale(1.05);
+    transform: scale(1.02);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  /* Media queries para diferentes densidades de tela */
-  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .hero-background-image {
-      background-size: cover;
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: crisp-edges;
-    }
-  }
-  
-  /* Fallback para dispositivos que não suportam background-attachment: fixed */
+  /* Fallback para dispositivos móveis */
   @media (hover: none) and (pointer: coarse) {
     .hero-background-image {
       background-attachment: scroll;
-      background-position: center center; /* Mobile usa centro padrão */
+      background-position: center center;
+      transform: scale(1);
     }
   }
   
-  /* Para telas muito pequenas, foca mais nas montanhas */
-  @media (max-width: 480px) {
+  /* Ajustes para telas pequenas */
+  @media (max-width: 640px) {
     .hero-background-image {
-      background-position: center 30%;
+      background-position: center 25%;
     }
   }
   
-  /* Gradientes com paleta da logo */
+  /* Paleta de cores moderna */
   .gradient-primary {
-    background: linear-gradient(135deg, #667A2B 0%, #7da947 100%);
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
   }
+  
   .gradient-secondary {
-    background: linear-gradient(135deg, #FF8A00 0%, #fb923c 100%);
-  }
-  .gradient-mountains {
-    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+    background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
   }
   
-  /* Glass effect responsivo */
+  .gradient-accent {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  }
+  
+  .gradient-neutral {
+    background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+  }
+  
+  /* Glass effect refinado */
   .glass-effect {
-    backdrop-filter: blur(12px);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(16px) saturate(180%);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   }
   
-  /* Cards responsivos */
+  .glass-effect-dark {
+    backdrop-filter: blur(16px) saturate(180%);
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Cards responsivos modernos */
   .card-responsive {
-    @apply rounded-xl shadow-lg transition-all duration-300;
-    padding: clamp(1rem, 3vw, 2rem);
-    margin-bottom: clamp(1rem, 2vw, 1.5rem);
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: clamp(1.5rem, 3vw, 2rem);
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid rgba(148, 163, 184, 0.1);
   }
   
   .card-hover-responsive {
-    @apply transition-all duration-300;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateY(0);
   }
   
   .card-hover-responsive:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 40px -8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
   }
   
-  /* Botões responsivos */
+  /* Botões modernos e vibrantes com efeitos dinâmicos */
   .btn-primary-responsive {
-    @apply inline-flex items-center justify-center rounded-full font-semibold transition-all duration-300;
-    background: linear-gradient(135deg, #667A2B 0%, #7da947 100%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 30%, #15803d 70%, #166534 100%);
     color: white;
-    padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.5rem);
-    font-size: clamp(0.875rem, 2.5vw, 1rem);
+    padding: clamp(1rem, 3vw, 1.5rem) clamp(2.5rem, 6vw, 4rem);
+    font-size: clamp(0.95rem, 2.8vw, 1.2rem);
+    box-shadow: 
+      0 15px 35px -5px rgba(34, 197, 94, 0.6), 
+      0 8px 20px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border: none;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transform: perspective(1000px);
+  }
+
+  .btn-primary-responsive::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255, 255, 255, 0.5), 
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left 0.8s ease-out;
+  }
+
+  .btn-primary-responsive::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #059669, #047857, #065f46);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .btn-primary-responsive:hover::before {
+    left: 100%;
+  }
+  
+  .btn-primary-responsive:hover::after {
+    opacity: 1;
+  }
+  
+  .btn-primary-responsive:hover {
+    transform: translateY(-4px) scale(1.1) perspective(1000px) rotateX(5deg);
+    background: linear-gradient(135deg, #059669 0%, #047857 30%, #065f46 70%, #064e3b 100%);
+    box-shadow: 
+      0 25px 50px -8px rgba(34, 197, 94, 0.7), 
+      0 15px 30px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+  }
+
+  .btn-primary-responsive:active {
+    transform: translateY(-2px) scale(1.05) perspective(1000px) rotateX(2deg);
+    transition: all 0.15s;
+    box-shadow: 
+      0 15px 30px -5px rgba(34, 197, 94, 0.5), 
+      0 8px 15px rgba(0, 0, 0, 0.2);
   }
   
   .btn-secondary-responsive {
-    @apply inline-flex items-center justify-center rounded-full font-semibold transition-all duration-300;
-    background: linear-gradient(135deg, #FF8A00 0%, #fb923c 100%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #fb923c 0%, #f97316 30%, #ea580c 70%, #dc2626 100%);
     color: white;
-    padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.5rem);
-    font-size: clamp(0.875rem, 2.5vw, 1rem);
+    padding: clamp(1rem, 3vw, 1.5rem) clamp(2.5rem, 6vw, 4rem);
+    font-size: clamp(0.95rem, 2.8vw, 1.2rem);
+    box-shadow: 
+      0 15px 35px -5px rgba(251, 146, 60, 0.6), 
+      0 8px 20px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transform: perspective(1000px);
+  }
+
+  .btn-secondary-responsive::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255, 255, 255, 0.5), 
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left 0.8s ease-out;
+  }
+
+  .btn-secondary-responsive::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #e11d48, #dc2626, #b91c1c);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .btn-secondary-responsive:hover::before {
+    left: 100%;
   }
   
-  /* Grid responsivo */
+  .btn-secondary-responsive:hover::after {
+    opacity: 1;
+  }
+  
+  .btn-secondary-responsive:hover {
+    transform: translateY(-4px) scale(1.1) perspective(1000px) rotateX(5deg);
+    background: linear-gradient(135deg, #e11d48 0%, #dc2626 30%, #b91c1c 70%, #991b1b 100%);
+    box-shadow: 
+      0 25px 50px -8px rgba(251, 146, 60, 0.7), 
+      0 15px 30px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.5);
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+  }
+
+  .btn-secondary-responsive:active {
+    transform: translateY(-2px) scale(1.05) perspective(1000px) rotateX(2deg);
+    transition: all 0.15s;
+    box-shadow: 
+      0 15px 30px -5px rgba(251, 146, 60, 0.5), 
+      0 8px 15px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+  
+  /* Grid responsivo moderno */
   .grid-responsive-2 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: clamp(1rem, 3vw, 2rem);
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: clamp(1.5rem, 4vw, 2.5rem);
   }
   
   .grid-responsive-3 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: clamp(1rem, 2.5vw, 1.5rem);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(1.25rem, 3vw, 2rem);
   }
 }
 
-/* Safe-area para dispositivos com notch */
+/* ===== RESPONSIVIDADE AVANÇADA PARA TODAS AS DIMENSÕES ===== */
+
+/* Global overflow protection */
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container global com margens seguras */
+.safe-container {
+  width: 100%;
+  max-width: calc(100vw - 2rem);
+  margin: 0 auto;
+  padding: 0 clamp(0.75rem, 3vw, 1.5rem);
+  overflow: hidden;
+}
+
+/* Media queries específicas para diferentes dispositivos */
+/* Mobile muito pequeno */
+@media (max-width: 320px) {
+  .text-fluid-hero {
+    font-size: 1.6rem !important;
+    line-height: 1.1 !important;
+    margin: 0.5rem 0 !important;
+  }
+  
+  .text-fluid-base {
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  .btn-primary-responsive,
+  .btn-secondary-responsive {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+/* Mobile padrão */
+@media (max-width: 480px) {
+  .text-fluid-hero {
+    font-size: clamp(1.8rem, 8vw, 2.2rem);
+    text-align: center;
+    margin: 1rem 0;
+  }
+  
+  .text-fluid-section-title {
+    font-size: clamp(1.4rem, 6vw, 1.8rem);
+    text-align: center;
+  }
+  
+  .container-padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Tablet retrato */
+@media (min-width: 481px) and (max-width: 768px) {
+  .text-fluid-hero {
+    font-size: clamp(2.2rem, 6vw, 3rem);
+  }
+  
+  .text-fluid-section-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+  }
+  
+  .btn-primary-responsive,
+  .btn-secondary-responsive {
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Tablet paisagem e notebooks pequenos */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .text-fluid-hero {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    line-height: 1.1;
+  }
+  
+  .text-fluid-section-title {
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+  }
+  
+  .container-padding {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Notebooks médios */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .text-fluid-hero {
+    font-size: clamp(3rem, 4vw, 4rem);
+    line-height: 1.1;
+  }
+  
+  .text-fluid-section-title {
+    font-size: clamp(2.2rem, 3vw, 3rem);
+  }
+  
+  .btn-primary-responsive,
+  .btn-secondary-responsive {
+    padding: 1.2rem 3rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* Desktops e notebooks grandes */
+@media (min-width: 1367px) and (max-width: 1920px) {
+  .text-fluid-hero {
+    font-size: clamp(3.5rem, 3.5vw, 4.5rem);
+    line-height: 1.1;
+  }
+  
+  .text-fluid-section-title {
+    font-size: clamp(2.5rem, 2.5vw, 3.2rem);
+  }
+  
+  .container-padding {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+/* Telas ultra-wide */
+@media (min-width: 1921px) {
+  .text-fluid-hero {
+    font-size: 4.8rem;
+    line-height: 1.1;
+  }
+  
+  .text-fluid-section-title {
+    font-size: 3.5rem;
+  }
+  
+  .btn-primary-responsive,
+  .btn-secondary-responsive {
+    padding: 1.5rem 4rem;
+    font-size: 1.25rem;
+  }
+}
+
+/* Orientação paisagem em mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+  .text-fluid-hero {
+    font-size: clamp(1.5rem, 4vw, 2.5rem) !important;
+    margin: 0.5rem 0 !important;
+  }
+  
+  .section-padding {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  
+  .btn-primary-responsive,
+  .btn-secondary-responsive {
+    padding: 0.75rem 2rem !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Telas muito altas (monitores verticais) */
+@media (min-height: 1200px) {
+  .section-padding {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+/* Dispositivos com tela pequena e alto DPI */
+@media (-webkit-min-device-pixel-ratio: 2) and (max-width: 768px) {
+  .text-fluid-hero {
+    font-weight: 900 !important;
+    text-shadow: 
+      0 8px 24px rgba(0, 0, 0, 0.9), 
+      0 4px 12px rgba(0, 0, 0, 0.8),
+      0 2px 6px rgba(0, 0, 0, 0.7) !important;
+  }
+  
+  .text-fluid-base {
+    font-weight: 600 !important;
+    text-shadow: 
+      0 4px 16px rgba(0, 0, 0, 0.9), 
+      0 2px 8px rgba(0, 0, 0, 0.8) !important;
+  }
+}
+
+/* Altura específica para laptops */
+@media (min-height: 600px) and (max-height: 800px) {
+  .section-padding {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+/* Dispositivos com tela pequena (smartwatches, etc) */
+@media (max-width: 280px) {
+  .text-fluid-hero {
+    font-size: 1.4rem !important;
+    line-height: 1.1 !important;
+  }
+  
+  .text-fluid-base {
+    font-size: 0.8rem !important;
+    line-height: 1.4 !important;
+  }
+  
+  .container-padding {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}
+
+/* Telas 4K e superiores */
+@media (min-width: 2560px) {
+  .text-fluid-hero {
+    font-size: 6rem;
+    line-height: 1.05;
+  }
+  
+  .text-fluid-section-title {
+    font-size: 4rem;
+  }
+  
+  .text-fluid-base {
+    font-size: 1.5rem;
+  }
+  
+  .btn-primary-responsive,
+  .btn-secondary-responsive {
+    padding: 2rem 5rem;
+    font-size: 1.4rem;
+  }
+}
+
+/* Fix específico para notebooks com resolução estranha */
+@media (min-width: 1280px) and (max-width: 1440px) and (min-height: 720px) and (max-height: 900px) {
+  .text-fluid-hero {
+    font-size: clamp(2.8rem, 3.5vw, 3.8rem) !important;
+    line-height: 1.1 !important;
+  }
+  
+  .text-fluid-section-title {
+    font-size: clamp(2rem, 2.5vw, 2.8rem) !important;
+  }
+}
+
+/* Proteção contra overflow em todas as dimensões */
+.overflow-safe {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Margens seguras universais */
+.margin-safe {
+  margin-left: clamp(0.5rem, 2vw, 1.5rem);
+  margin-right: clamp(0.5rem, 2vw, 1.5rem);
+}
+
+/* Padding responsivo seguro */
+.padding-safe {
+  padding: clamp(0.75rem, 3vw, 2rem);
+}
+
+/* Classes de segurança adiccionais */
+.text-safe {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+}
+
+.container-safe {
+  max-width: 100vw;
+  overflow-x: hidden;
+  margin: 0 auto;
+}
+
+/* Animações otimizadas para performance */
+@media (prefers-reduced-motion: no-preference) {
+  .smooth-transform {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .smooth-all {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Para dispositivos que preferem movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+/* Responsividade específica para notebooks */
+@media (min-width: 1024px) and (max-width: 1366px) and (min-height: 600px) and (max-height: 800px) {
+  .text-fluid-hero {
+    font-size: clamp(2.8rem, 4vw, 3.8rem) !important;
+    line-height: 1.08 !important;
+  }
+  
+  .text-fluid-base {
+    font-size: clamp(1rem, 1.8vw, 1.1rem) !important;
+  }
+  
+  /* Hero específico para notebook */
+  section[id="inicio"] {
+    min-height: 100vh !important;
+    height: 100vh !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+}
+
+/* Ajustes para notebooks pequenos */
+@media (min-width: 1024px) and (max-width: 1280px) and (min-height: 600px) and (max-height: 720px) {
+  .text-fluid-hero {
+    font-size: clamp(2.4rem, 3.5vw, 3.2rem) !important;
+  }
+}
+
 @supports (padding: max(0px)) {
-  header { padding-top: env(safe-area-inset-top); }
+  header { 
+    padding-top: env(safe-area-inset-top); 
+  }
 }
 
-/* Scrollbar com cores da marca */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
+/* Scrollbar moderna */
+::-webkit-scrollbar { 
+  width: 8px; 
+}
+
+::-webkit-scrollbar-track { 
+  background: transparent; 
+}
+
 ::-webkit-scrollbar-thumb { 
-  background: rgba(102, 122, 43, 0.3); 
-  border-radius: 3px; 
-  transition: background 0.2s ease;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.6)); 
+  border-radius: 4px; 
+  transition: background 0.3s ease;
 }
-::-webkit-scrollbar-thumb:hover { background: rgba(102, 122, 43, 0.5); }
 
-/* Animações */
+::-webkit-scrollbar-thumb:hover { 
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.5), rgba(34, 197, 94, 0.8)); 
+}
+
+/* ===== ANIMAÇÕES MODERNAS E ELEGANTES ===== */
 .fade-in { 
-  animation: fadeIn 0.8s ease-out forwards; 
+  animation: modernFadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards; 
   opacity: 0; 
 }
-@keyframes fadeIn { 
-  to { opacity: 1; } 
+
+@keyframes modernFadeIn { 
+  from { 
+    opacity: 0; 
+    transform: translateY(20px) scale(0.95);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1);
+  } 
 }
 
 .slide-up {
-  animation: slideUp 0.6s ease-out forwards;
+  animation: modernSlideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(40px);
 }
-@keyframes slideUp {
+
+@keyframes modernSlideUp {
   to { 
     opacity: 1; 
     transform: translateY(0);
@@ -346,25 +954,58 @@ body::selection { background: rgba(102, 122, 43, 0.2); }
 
 /* Hover elegante para cards */
 .card-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.25);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
-/* Focus states */
+/* Focus states modernos */
 .focus-ring {
-  @apply focus:outline-none focus:ring-2 focus:ring-brand-green-500/50 focus:ring-offset-2;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+  border-radius: 0.5rem;
+  transition: box-shadow 0.2s ease;
 }
 
-/* Loading states */
-.skeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
+.focus-ring:focus {
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.4);
 }
-@keyframes loading {
+
+/* Loading states sofisticados */
+.skeleton {
+  background: linear-gradient(90deg, 
+    rgba(243, 244, 246, 0.8) 25%, 
+    rgba(229, 231, 235, 0.8) 50%, 
+    rgba(243, 244, 246, 0.8) 75%
+  );
+  background-size: 200% 100%;
+  animation: modernLoading 2s ease-in-out infinite;
+  border-radius: 0.5rem;
+}
+
+@keyframes modernLoading {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
+}
+
+/* ===== MICRO-INTERAÇÕES E DETALHES REFINADOS ===== */
+.hover-glow:hover {
+  box-shadow: 
+    0 0 20px rgba(34, 197, 94, 0.3),
+    0 0 40px rgba(34, 197, 94, 0.1);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #22c55e 0%, #fb923c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.backdrop-blur-glass {
+  backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.1);
 }

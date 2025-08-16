@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { asset } from '../../../shared/assetPath';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAnimateOnScroll, useStaggerChildren } from '../../../hooks/useAnimation';
 import { Expand, Play, Image as ImageIcon } from 'lucide-react';
@@ -6,11 +7,11 @@ import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 
 const images = [
-  { src: '/gallery/1.jpg', title: 'Vista Aérea Principal', type: 'image' },
-  { src: '/gallery/2.jpg', title: 'Área de Preservação', type: 'image' },
-  { src: '/gallery/3.jpg', title: 'Acesso Principal', type: 'image' },
-  { src: '/gallery/4.jpg', title: 'Topografia do Terreno', type: 'image' },
-  { src: '/gallery/5.jpg', title: 'Paisagem Natural', type: 'image' }
+  { src: asset('gallery/1.jpg'), title: 'Vista Aérea Principal', type: 'image' },
+  { src: asset('gallery/2.jpg'), title: 'Área de Preservação', type: 'image' },
+  { src: asset('gallery/3.jpg'), title: 'Acesso Principal', type: 'image' },
+  { src: asset('gallery/4.jpg'), title: 'Topografia do Terreno', type: 'image' },
+  { src: asset('gallery/5.jpg'), title: 'Paisagem Natural', type: 'image' }
 ];
 
 export function Gallery() {

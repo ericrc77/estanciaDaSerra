@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useAnimateOnScroll, useStaggerChildren } from '../../../hooks/useAnimation';
 import { Check, MapPin, Shield, Sparkles } from 'lucide-react';
+import { asset } from '../../../shared/assetPath';
 
 const features = [
   { icon: Shield, text: 'Portaria projetada', color: 'text-brand-green-600' },
@@ -20,7 +21,7 @@ export function About() {
       id="sobre" 
       className="relative px-4 xs:px-6 max-w-6xl mx-auto overflow-hidden"
       style={{
-        backgroundImage: `url('/media/terreno.png')`,
+        backgroundImage: `url(${asset('media/terreno.png')})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -98,8 +99,8 @@ export function About() {
           className="order-1 md:order-2 relative group"
         >
           <div className="relative aspect-[4/3] md:aspect-[5/4] rounded-2xl overflow-hidden shadow-soft-lg">
-            <motion.img 
-              src="/gallery/1.jpg" 
+              <motion.img 
+              src={asset('gallery/1.jpg')} 
               alt="Vista da área do empreendimento" 
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
               loading="lazy"

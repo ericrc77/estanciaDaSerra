@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Play, MapPin } from 'lucide-react';
+import { asset } from '../../../shared/assetPath';
 
-// Assets servidos via pasta public
-const heroVideo = '/media/hero-placeholder.mp4';
-const heroImage = '/media/hero.png';
+// Assets servidos via pasta public com base dinâmica
+const heroVideo = asset('media/hero-placeholder.mp4');
+const heroImage = asset('media/hero.png');
 
 export function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -76,7 +77,7 @@ export function Hero() {
         <div className="mb-8">
           <div className="logo-hero">
             <img 
-              src="/media/logomaislarga.jpeg" 
+              src={asset('media/logomaislarga.jpeg')} 
               alt="Estância da Serra" 
               className="w-auto h-24 md:h-32 mx-auto object-contain filter drop-shadow-lg rounded-2xl"
             />

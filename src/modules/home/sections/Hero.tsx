@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Play, MapPin } from 'lucide-react';
 import { Logo } from '../../../components/Logo';
+import { asset } from '../../../shared/assetPath';
 
-// Assets servidos via pasta public
-const heroVideo = '/media/hero-placeholder.mp4';
-const heroImage = '/media/hero.png';
+// Assets servidos via pasta public com base dinâmica
+const heroVideo = asset('media/hero-placeholder.mp4');
+const heroImage = asset('media/hero.png');
 
 export function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);

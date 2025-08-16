@@ -1,0 +1,8 @@
+{
+  "name": "site-monitor",
+  "version": "1.0.0",
+  "scripts": {
+    "check-site": "node check-site.js",
+    "auto-deploy": "npm run build && npm run deploy && npm run check-site"
+  }
+}

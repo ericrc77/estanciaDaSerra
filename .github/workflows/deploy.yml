@@ -1,23 +1,40 @@
-name: Deploy
+name: Deploy to GitHub Pages
+
 on:
   push:
     branches: [ main ]
+  schedule:
+    # Deploy automático toda terça às 2h da manhã para garantir que está sempre online
+    - cron: '0 2 * * 2'
+
 permissions:
   contents: write
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
+          
       - run: npm ci
+      
       - run: npm run build
-      - name: Deploy to GH Pages
+      
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          
+      - name: Verify deployment
+        run: |
+          sleep 30
+          curl -f https://ericrc77.github.io/estanciaDaSerra/ || exit 1
+          echo "✅ Site verified and online!"
           publish_branch: gh-pages # garante branch destino
           force_orphan: true # mantém histórico de deploy limpo
